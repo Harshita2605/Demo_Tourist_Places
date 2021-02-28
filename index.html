@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Map 1.0</title>
+        <title> Map 1.0 </title>
+        
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
         <style>
-            #map {height:665px; width: 100%;}
+            #map {height:625px; width: 100%;}
+            #toolbar
+            {
+                background-color: indianred;
+                height: 5vh;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                border: 1px solid black;
+            }
+
+            .tool
+            {
+                cursor: pointer;
+                background-color: white; 
+                padding: 3px;
+                border: 1px solid black; 
+                border-radius: 8px;
+            }
         </style>
+
+    </head>
+
+    <body>
+        <h1> Map 1.0 </h1>
+        <div id="map"></div>   
+        <div id="toolbar">
+            <div class="tool" id="show"> Show Grid </div>
+            <div class="tool" id="clear"> Clear </div>
+        </div>
 
         <script>
             let map;
@@ -13,7 +42,7 @@
 
             function initMap() 
             {
-                var bangalore = { lat: 12.9716, lng: 77.5946 }
+                var bangalore = { lat: 12.97, lng: 77.59 }
                 var options = { zoom: 10, center: bangalore }
                 map = new google.maps.Map(document.getElementById("map"), options);
 
@@ -21,18 +50,24 @@
                 # lat1 = 12.6400
                 # lon1 = 77.3200
                 # lat2 = 13.2300
-                # lon2 = 77.8300 */
-
-                for (let i = 0; i < 60; i++) 
-                    for (let j = 0; j < 52; j++) setCoords({Coords: { lat: 12.6400 + 0.01*i, lng: 77.3200 + 0.01*j }})               
+                # lon2 = 77.8300 */                 
             }
+
+            document.getElementById("show").addEventListener("click", function () 
+            {
+                for (let i = 0; i < 60; i++) 
+                    for (let j = 0; j < 52; j++)
+                        setCoords({Coords: { lat: 12.64 + 0.01*j, lng: 77.32 + 0.01*i }});
+            })
+
+            document.getElementById("clear").addEventListener("click", function () { location.reload(); })
 
             function setCoords(props)
             {
                 var lat1 = props.Coords.lat 
                 var lng1 = props.Coords.lng
                 var lat2 = props.Coords.lat + 0.01
-                var lng2 = props.Coords.lng
+                var lng2 = props.Coords.lng  
                 var lat3 = props.Coords.lat + 0.01
                 var lng3 = props.Coords.lng + 0.01
                 var lat4 = props.Coords.lat
@@ -52,6 +87,7 @@
                 const myGrid = new google.maps.Polygon
                 ({
                     paths: props.Coords,
+                    zIndex: props.gridNumber,
                     strokeColor: "#FF0000",
                     strokeOpacity: 0.8,
                     strokeWeight: 1,
@@ -69,12 +105,13 @@
                 const polygon = this;
                 const vertices = polygon.getPath();
                 let contentString =
-                    "Clicked location: <br>" + event.latLng.lat() + ", " + event.latLng.lng() + "<br>";
+                    "Clicked location: <br>" + event.latLng.lat() + ", " + event.latLng.lng() + "<br>" +
+                    "<br>Grid Coordinates: ";
 
                 for (let i = 0; i < vertices.getLength(); i++) 
                 {
                     const xy = vertices.getAt(i);
-                    contentString += "<br>" + "Coordinate " + (i+1) + ": " + xy.lat() + ", " + xy.lng();
+                    contentString += "<br>" + "Coordinate " + (i+1) + ": " + xy.lat().toFixed(2) + ", " + xy.lng().toFixed(2);
                 }
 
                 infoWindow.setContent(contentString);
@@ -84,11 +121,6 @@
 
         </script>
 
-    </head>
-
-    <body>
-        <div id="map"></div>    
-        <h1>Map 1.0</h1>
         <script async
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap">
         </script>
