@@ -1,183 +1,401 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title> Map 1.0 </title>
-        
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-        <style>
-            #map {height:625px; width: 100%;}
 
-            #toolbar
-            {
-                background-color: indianred;
-                height: 5vh;
-                display: flex;
-                justify-content: space-evenly;
-                align-items: center;
-                border: 1px solid black;
-            }
+<head>
+    <title> Map 1.0 </title>
 
-            .tool
-            {
-                cursor: pointer;
-                background-color: white; 
-                padding: 3px;
-                border: 1px solid black; 
-                border-radius: 8px;
-            }
-        </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <style>
+        #map {
+            height: 675px;
+            width: 100%;
+        }
 
-    </head>
+        /* #toolbar {
+            background-color: indianred;
+            height: 5vh;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            border: 1px solid black;
+        }
 
-    <body>
-        <div id="header"> <h1> Map 1.0 </h1> </div>
-        <div id="map"></div>   
-        <div id="toolbar">
-            <div class="tool" id="show"> Show Grid </div>
-            <div class="tool" id="type"> Grid Type </div>
-            <div class="tool" id="label"> Class Label </div>
-            <div class="tool" id="clear"> Clear </div>
+        .tool {
+            cursor: pointer;
+            background-color: white;
+            padding: 3px;
+            border: 1px solid black;
+            border-radius: 8px;
+        } */
+
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .subnav {
+            float: left;
+            overflow: hidden;
+        }
+
+        .subnav .subnavbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover,
+        .subnav:hover .subnavbtn {
+            background-color: white;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .subnav-content {
+            display: none;
+            position: absolute;
+            left: 100;
+            background-color: white;
+            width: 8%;
+            z-index: 1;
+        }
+
+        .subnav-content a {
+            float: center;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .subnav-content a:hover {
+            background-color: white;
+            font-weight: bold;
+            color: black;
+        }
+
+        .subnav:hover .subnav-content {
+            display: block;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="header">
+        <h1> Map 1.0 </h1>
+    </div>
+    <div class="navbar">
+        <div class="subnav" id="basemap">
+            <button class="subnavbtn"> Basemap <i class="fa fa-caret-down"></i></button>
         </div>
+        <div class="subnav" id="bangalore">
+            <button class="subnavbtn"> Bangalore <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#" onclick=banGrid()> Show Grid </a>
+                <a href="#" onclick=banType()> Grid Type </a>
+            </div>
+        </div>
+        <div class="subnav" id="chandigarh">
+            <button class="subnavbtn"> Chandigarh <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#" onclick=chdGrid()> Show Grid </a>
+                <a href="#" onclick=chdType()> Grid Type </a>
+            </div>
+        </div>
+        <div class="subnav">
+            <button class="subnavbtn" id="chennai"> Chennai <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#" onclick=chnGrid()> Show Grid </a>
+                <a href="#" onclick=chnType()> Grid Type </a>
+            </div>
+        </div>
+        <div class="subnav">
+            <button class="subnavbtn" id="delhi"> Delhi <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#" onclick=delGrid()> Show Grid </a>
+                <a href="#" onclick=delType()> Grid Type </a>
+            </div>
+        </div>
+        <div class="subnav">
+            <button class="subnavbtn" id="delhi"> Gurgaon <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#" onclick=gurGrid()> Show Grid </a>
+                <a href="#" onclick=gurType()> Grid Type </a>
+            </div>
+        </div>
+        <div class="subnav">
+            <button class="subnavbtn" id="delhi"> Hyderabad <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#" onclick=hydGrid()> Show Grid </a>
+                <a href="#" onclick=hydType()> Grid Type </a>
+            </div>
+        </div>
+        <div class="subnav">
+            <button class="subnavbtn" id="delhi"> Kolkata <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#" onclick=kolGrid()> Show Grid </a>
+                <a href="#" onclick=kolType()> Grid Type </a>
+            </div>
+        </div>
+        <div class="subnav">
+            <button class="subnavbtn" id="delhi"> Mumbai <i class="fa fa-caret-down"></i></button>
+            <div class="subnav-content">
+                <a href="#" onclick=mumGrid()> Show Grid </a>
+                <a href="#" onclick=mumType()> Grid Type </a>
+            </div>
+        </div>
+    </div>
+    <div id="map"></div>
 
-        <script>
-            var grid_type = ["Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","Urban","Urban","Urban","Urban","PeriUrban","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","Urban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","PeriUrban","Urban","Urban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","PeriUrban","Urban","PeriUrban","Urban","Urban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","Rural","PeriUrban","Rural","PeriUrban","Urban","Urban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Urban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","Rural","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","PeriUrban","PeriUrban","Urban","PeriUrban","PeriUrban","Rural","Rural","Rural","PeriUrban","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","PeriUrban","PeriUrban","Rural","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Urban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Urban","Urban","PeriUrban","Rural","Rural","PeriUrban","Rural","Rural","PeriUrban","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Urban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","Rural","Rural","PeriUrban","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","PeriUrban","PeriUrban","Rural","PeriUrban","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","PeriUrban","Rural","PeriUrban","PeriUrban","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","PeriUrban","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rejected","Rural","Rural","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rural","Rural","Rural","Rural","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected","Rejected"]
+    <script>
+        let map;
+        let infoWindow;
+        var grid_type;
+        var class_label;
 
-            var class_label = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,3,3,3,3,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,2,2,2,2,3,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,2,3,4,4,2,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,4,2,3,4,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,2,2,2,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,2,0,2,4,3,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,0,2,2,2,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,2,4,2,2,0,0,0,3,0,0,1,2,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,2,3,0,0,2,0,0,0,0,0,5,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,3,5,2,0,0,2,0,0,2,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,3,3,2,0,0,0,0,0,0,0,0,3,3,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,2,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,1,2,2,2,1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,2,0,2,1,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,1,0,1,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        var basemap = { lat: 20.59, lng: 78.96 }
+        var bangalore = { lat: 12.97, lng: 77.59 }
+        var chandigarh = { lat: 30.73, lng: 76.78 }
+        var chennai = { lat: 13.08, lng: 80.27 }
+        var delhi = { lat: 28.70, lng: 77.10 }
+        var gurgaon = { lat: 28.46, lng: 77.03 }
+        var hyderabad = { lat: 17.38, lng: 78.49 }
+        var kolkata = { lat: 22.57, lng: 88.36 }
+        var mumbai = { lat: 19.08, lng: 72.88 }
 
-            let map;
-            let infoWindow;
+        function initMap() {
+            var options = { zoom: 5, center: basemap }
+            map = new google.maps.Map(document.getElementById("map"), options);
+        }
 
-            function initMap() 
-            {
-                var bangalore = { lat: 12.97, lng: 77.59 }
-                var options = { zoom: 10, center: bangalore }
-                map = new google.maps.Map(document.getElementById("map"), options);
+        document.getElementById("basemap").addEventListener("click", function () {
+            map.setCenter(basemap);
+            map.setZoom(5);
+        })
+        document.getElementById("bangalore").addEventListener("click", function () {
+            map.setCenter(bangalore);
+            map.setZoom(10);
+        })
+        document.getElementById("chandigarh").addEventListener("click", function () {
+            map.setCenter(chandigarh);
+            map.setZoom(10);
+        })
+        document.getElementById("chennai").addEventListener("click", function () {
+            map.setCenter(chennai);
+            map.setZoom(10);
+        })
+        document.getElementById("delhi").addEventListener("click", function () {
+            map.setCenter(delhi);
+            map.setZoom(10);
+        })
+        document.getElementById("gurgaon").addEventListener("click", function () {
+            map.setCenter(gurgaon);
+            map.setZoom(10);
+        })
+        document.getElementById("hyderabad").addEventListener("click", function () {
+            map.setCenter(hyderabad);
+            map.setZoom(10);
+        })
+        document.getElementById("kolkata").addEventListener("click", function () {
+            map.setCenter(kolkata);
+            map.setZoom(10);
+        })
+        document.getElementById("mumbai").addEventListener("click", function () {
+            map.setCenter(mumbai);
+            map.setZoom(10);
+        })
 
-                /* # Bangalore
-                # lat1 = 12.6400
-                # lon1 = 77.3200
-                # lat2 = 13.2300
-                # lon2 = 77.8300 */                 
-            }
+        /* imax = (long2 - long1) * 100
+        jamx = (lat2 - lat1) * 100 */
 
-            document.getElementById("show").addEventListener("click", function () 
-            {
-                let k = 0;
-                for (let i = 0; i < 51; i++) 
-                    for (let j = 0; j < 59; j++)
-                    {
-                        setCoords({properties: { lat: 12.64 + 0.01*j, lng: 77.32 + 0.01*i, num: k }}, 0);
-                        k += 1;
-                    }
-            })
+        function banGrid() {
+            map.setCenter(bangalore);
+            map.setZoom(10);
+            let k = 0;
+            for (let i = 0; i < 51; i++)
+                for (let j = 0; j < 59; j++) {
+                    setCoords({ properties: { lat: 12.64 + 0.01 * j, lng: 77.32 + 0.01 * i, num: k } }, 0);
+                    k += 1;
+                }
+        }
+        function chdGrid() {
+            map.setCenter(chandigarh);
+            map.setZoom(10);
+            let k = 0;
+            for (let i = 0; i < 15; i++)
+                for (let j = 0; j < 14; j++) {
+                    setCoords({ properties: { lat: 30.66 + 0.01 * j, lng: 76.69 + 0.01 * i, num: k } }, 0);
+                    k += 1;
+                }
+        }
+        function chnGrid() {
+            map.setCenter(chennai);
+            map.setZoom(10);
+            let k = 0;
+            for (let i = 0; i < 15; i++)
+                for (let j = 0; j < 19; j++) {
+                    setCoords({ properties: { lat: 12.95 + 0.01 * j, lng: 80.16 + 0.01 * i, num: k } }, 0);
+                    k += 1;
+                }
+        }
+        function delGrid() {
+            map.setCenter(delhi);
+            map.setZoom(10);
+            let k = 0;
+            for (let i = 0; i < 51; i++)
+                for (let j = 0; j < 49; j++) {
+                    setCoords({ properties: { lat: 28.40 + 0.01 * j, lng: 76.83 + 0.01 * i, num: k } }, 0);
+                    k += 1;
+                }
+        }
+        function gurGrid() {
+            map.setCenter(gurgaon);
+            map.setZoom(10);
+            let k = 0;
+            for (let i = 0; i < 61; i++)
+                for (let j = 0; j < 35; j++) {
+                    setCoords({ properties: { lat: 28.20 + 0.01 * j, lng: 76.63 + 0.01 * i, num: k } }, 0);
+                    k += 1;
+                }
+        }
+        function hydGrid() {
+            map.setCenter(hyderabad);
+            map.setZoom(10);
+            let k = 0;
+            for (let i = 0; i < 16; i++)
+                for (let j = 0; j < 19; j++) {
+                    setCoords({ properties: { lat: 17.29 + 0.01 * j, lng: 78.38 + 0.01 * i, num: k } }, 0);
+                    k += 1;
+                }
+        }
+        function kolGrid() {
+            map.setCenter(kolkata);
+            map.setZoom(10);
+            let k = 0;
+            for (let i = 0; i < 14; i++)
+                for (let j = 0; j < 14; j++) {
+                    setCoords({ properties: { lat: 22.49 + 0.01 * j, lng: 88.27 + 0.01 * i, num: k } }, 0);
+                    k += 1;
+                }
+        }
+        function mumGrid() {
+            map.setCenter(mumbai);
+            map.setZoom(10);
+            let k = 0;
+            for (let i = 0; i < 22; i++)
+                for (let j = 0; j < 38; j++) {
+                    setCoords({ properties: { lat: 18.89 + 0.01 * j, lng: 72.77 + 0.01 * i, num: k } }, 0);
+                    k += 1;
+                }
+        }
 
-            document.getElementById("type").addEventListener("click", function() 
-            {
-                let k = 0;
-                for (let i = 0; i < 51; i++) 
-                    for (let j = 0; j < 59; j++)
-                    {
-                        setCoords({properties: { lat: 12.64 + 0.01*j, lng: 77.32 + 0.01*i, num: k }}, 1);
-                        k += 1;
-                    }
-            })
 
-            document.getElementById("label").addEventListener("click", function() 
-            {
-                let k = 0;
-                for (let i = 0; i < 51; i++) 
-                    for (let j = 0; j < 59; j++)
-                    {
-                        setCoords({properties: { lat: 12.64 + 0.01*j, lng: 77.32 + 0.01*i, num: k }}, 2);
-                        k += 1;
-                    }
-            })
+        function banType() {
+            map.setCenter(bangalore);
+            map.setZoom(10);
 
-            document.getElementById("clear").addEventListener("click", function () { location.reload(); })
-            
-            function setCoords(props, flag)
-            {
-                var gridNumber = props.properties.num
-                var lat1 = props.properties.lat 
-                var lng1 = props.properties.lng
-                var lat2 = props.properties.lat + 0.01
-                var lng2 = props.properties.lng  
-                var lat3 = props.properties.lat + 0.01
-                var lng3 = props.properties.lng + 0.01
-                var lat4 = props.properties.lat
-                var lng4 = props.properties.lng + 0.01
+            grid_type = ["Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "Urban", "Urban", "Urban", "Urban", "PeriUrban", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "Urban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "Urban", "Urban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "Urban", "PeriUrban", "Urban", "Urban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "PeriUrban", "Rural", "PeriUrban", "Urban", "Urban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Urban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "PeriUrban", "PeriUrban", "Urban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "PeriUrban", "PeriUrban", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Urban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Urban", "Urban", "PeriUrban", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Urban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "PeriUrban", "Rural", "PeriUrban", "PeriUrban", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "PeriUrban", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rejected", "Rural", "Rural", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rural", "Rural", "Rural", "Rural", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected", "Rejected"]
+            class_label = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 3, 3, 3, 3, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 2, 3, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 2, 3, 4, 4, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 4, 2, 3, 4, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 2, 0, 2, 4, 3, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 2, 2, 2, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 4, 2, 2, 0, 0, 0, 3, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 3, 0, 0, 2, 0, 0, 0, 0, 0, 5, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 5, 2, 0, 0, 2, 0, 0, 2, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 2, 2, 2, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 2, 0, 2, 1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 1, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-                const myGrid = new google.maps.Polygon
+            let k = 0;
+            for (let i = 0; i < 51; i++)
+                for (let j = 0; j < 59; j++) {
+                    setCoords({ properties: { lat: 12.64 + 0.01 * j, lng: 77.32 + 0.01 * i, num: k } }, 1);
+                    k += 1;
+                }
+        }
+
+        function setCoords(props, flag) {
+            var gridNumber = props.properties.num
+            var lat1 = props.properties.lat
+            var lng1 = props.properties.lng
+            var lat2 = props.properties.lat + 0.01
+            var lng2 = props.properties.lng
+            var lat3 = props.properties.lat + 0.01
+            var lng3 = props.properties.lng + 0.01
+            var lat4 = props.properties.lat
+            var lng4 = props.properties.lng + 0.01
+
+            const myGrid = new google.maps.Polygon
                 ({
-                    paths: 
-                    [
-                        { lat: lat1, lng: lng1 },
-                        { lat: lat2, lng: lng2 },
-                        { lat: lat3, lng: lng3 },
-                        { lat: lat4, lng: lng4 },
-                    ],
+                    paths:
+                        [
+                            { lat: lat1, lng: lng1 },
+                            { lat: lat2, lng: lng2 },
+                            { lat: lat3, lng: lng3 },
+                            { lat: lat4, lng: lng4 },
+                        ],
 
                     strokeColor: "#000000",
                     strokeOpacity: 0.8,
                     strokeWeight: 1,
                     fillColor: getColor(gridNumber, flag),
-                    fillOpacity: 1,
+                    fillOpacity: 0.3,
                 });
 
-                myGrid.setMap(map);
-                myGrid.addListener("click", showArrays);
-                infoWindow = new google.maps.InfoWindow();
+            myGrid.setMap(map);
+            myGrid.addListener("click", showArrays);
+            infoWindow = new google.maps.InfoWindow();
+        }
+
+        function getColor(gridNumber, flag) {
+            var color = "#";
+            var i = gridNumber;
+
+            if (flag == 0) color += "FFFFFF00"
+            else if (flag == 1) {
+                if (grid_type[i] == "Rejected") color += "000000";
+                else if (grid_type[i] == "Rural") color += "FFFF00";
+                else if (grid_type[i] == "PeriUrban") color += "FFA500";
+                else if (grid_type[i] == "Urban") color += "FF0000";
+                else color += "FFFFFF";
+            }
+            else {
+                if (class_label[i] == 0) color += "000000";
+                else if (class_label[i] == 1) color += "FFFF00";
+                else if (class_label[i] == 2) color += "90EE90";
+                else if (class_label[i] == 3) color += "006400";
+                else if (class_label[i] == 4) color += "00008b";
+                else color += "FFFFFF";
+            }
+            return color;
+        }
+
+        function showArrays(event) {
+            const polygon = this;
+            const vertices = polygon.getPath();
+            let contentString =
+                "Clicked location: <br>" + event.latLng.lat() + ", " + event.latLng.lng() + "<br>" +
+                "<br>Grid Coordinates: ";
+
+            for (let i = 0; i < vertices.getLength(); i++) {
+                const xy = vertices.getAt(i);
+                contentString += "<br>" + "Coordinate " + (i + 1) + ": " + xy.lat().toFixed(2) + ", " + xy.lng().toFixed(2);
             }
 
-            function getColor(gridNumber, flag) 
-            {                
-                var color = "#";
-                var i = gridNumber;
+            infoWindow.setContent(contentString);
+            infoWindow.setPosition(event.latLng);
+            infoWindow.open(map);
+        }
 
-                if (flag == 0) color += "FFFFFF00"
-                else if (flag == 1)
-                {
-                    if (grid_type[i] == "Rejected") color += "000000";
-                    else if (grid_type[i] == "Rural") color += "FFFF00";
-                    else if (grid_type[i] == "PeriUrban") color += "FFA500";
-                    else if (grid_type[i] == "Urban") color += "FF0000";
-                    else color += "FFFFFF";
-                }
-                else 
-                {
-                    if (class_label[i] == 0) color += "000000";
-                    else if (class_label[i] == 1) color += "FFFF00";
-                    else if (class_label[i] == 2) color += "90EE90";
-                    else if (class_label[i] == 3) color += "006400";
-                    else if (class_label[i] == 4) color += "00008b";
-                    else color += "FFFFFF";
-                }
-                return color;
-            }
+    </script>
 
-            function showArrays(event) 
-            {
-                const polygon = this;
-                const vertices = polygon.getPath();
-                let contentString =
-                    "Clicked location: <br>" + event.latLng.lat() + ", " + event.latLng.lng() + "<br>" +
-                    "<br>Grid Coordinates: ";
-
-                for (let i = 0; i < vertices.getLength(); i++) 
-                {
-                    const xy = vertices.getAt(i);
-                    contentString += "<br>" + "Coordinate " + (i+1) + ": " + xy.lat().toFixed(2) + ", " + xy.lng().toFixed(2);
-                }
-
-                infoWindow.setContent(contentString);
-                infoWindow.setPosition(event.latLng);
-                infoWindow.open(map);
-            }
-
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap">
         </script>
+</body>
 
-        <script async
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap">
-        </script>
-    </body>
-    </html>
+</html>
