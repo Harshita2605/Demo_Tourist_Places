@@ -171,8 +171,7 @@
         var kolkata = { lat: 22.57, lng: 88.36 }
         var mumbai = { lat: 19.08, lng: 72.88 }
 
-        function initMap() {
-            var options = { zoom: 5, center: basemap }
+        function initMap(options) {
             map = new google.maps.Map(document.getElementById("map"), options);
         }
 
@@ -213,12 +212,8 @@
             map.setZoom(10);
         })
 
-        /* imax = (long2 - long1) * 100
-        jamx = (lat2 - lat1) * 100 */
-
         function ban(flag) {
-            map.setCenter(bangalore);
-            map.setZoom(10);
+            initMap({ zoom: 10, center: bangalore });
 
             Grid_type = Bangalore_Grid_type;
             Class_label = Bangalore_Class_label;
@@ -234,8 +229,7 @@
                 }
         }
         function chd(flag) {
-            map.setCenter(chandigarh);
-            map.setZoom(10);
+            initMap({ zoom: 10, center: chandigarh });
 
             let k = 0;
             for (let i = 0; i < 15; i++)
@@ -245,8 +239,7 @@
                 }
         }
         function chn(flag) {
-            map.setCenter(chennai);
-            map.setZoom(10);
+            initMap({ zoom: 10, center: chennai });
 
             Grid_type = Chennai_Grid_type;
             Class_label = Chennai_Class_label;
@@ -262,16 +255,15 @@
                 }
         }
         function del(flag) {
-            map.setCenter(delhi);
-            map.setZoom(10);
-            let k = 0;
+            initMap({ zoom: 10, center: delhi });
 
             Grid_type = Delhi_Grid_type;
             Class_label = Delhi_Class_label;
 
             getColorArrays(Grid_type, gridtypeColor);
             getColorArrays(Class_label, classlabelColor);
-
+            
+            let k = 0;
             for (let i = 0; i < 51; i++)
                 for (let j = 0; j < 49; j++) {
                     setCoords({ properties: { lat: Delhi_Grid_Coordinates[0] + 0.01 * j, lng: Delhi_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
@@ -279,8 +271,7 @@
                 }
         }
         function gur(flag) {
-            map.setCenter(gurgaon);
-            map.setZoom(10);
+            initMap({ zoom: 10, center: gurgaon });
 
             Grid_type = Gurgaon_Grid_type;
             Class_label = Gurgaon_Class_label;
@@ -296,8 +287,7 @@
                 }
         }
         function hyd(flag) {
-            map.setCenter(hyderabad);
-            map.setZoom(10);
+            initMap({ zoom: 10, center: hyderabad });
 
             Grid_type = Hyderabad_Grid_type;
             Class_label = Hyderabad_Class_label;
@@ -313,15 +303,14 @@
                 }
         }
         function kol(flag) {
-            map.setCenter(kolkata);
-            map.setZoom(10);
+            initMap({ zoom: 10, center: kolkata });
 
             Grid_type = Kolkata_Grid_type;
             Class_label = Kolkata_Class_label;
 
             getColorArrays(Grid_type, gridtypeColor);
             getColorArrays(Class_label, classlabelColor);
-            
+
             let k = 0;
             for (let i = 0; i < 14; i++)
                 for (let j = 0; j < 14; j++) {
@@ -330,8 +319,7 @@
                 }
         }
         function mum(flag) {
-            map.setCenter(mumbai);
-            map.setZoom(10);
+            initMap({ zoom: 10, center: mumbai });
 
             Grid_type = Mumbai_Grid_type;
             Class_label = Mumbai_Class_label;
@@ -398,7 +386,7 @@
             const polygon = this;
             const vertices = polygon.getPath();
             let contentString =
-                "Clicked location: <br>" + event.latLng.lat() + ", " + event.latLng.lng() + "<br>" +
+                "Location: <br>" + event.latLng.lat() + ", " + event.latLng.lng() + "<br>" +
                 "<br>Grid Coordinates: ";
 
             for (let i = 0; i < vertices.getLength(); i++) {
