@@ -4,7 +4,11 @@
 <head>
     <title> Map 1 </title>
 
-    <script src="data.js"></script> 
+    <script src="js/all.js"></script> 
+    <script src="js/n.js"></script> 
+    <script src="js/num.js"></script> 
+    <script src="js/pop.js"></script> 
+
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <style>
         #map {
@@ -26,7 +30,8 @@
             text-decoration: none;
         }
 
-        .subnav {
+        .subnav,
+        .sub_subnav {
             float: left;
             overflow: hidden;
         }
@@ -41,9 +46,21 @@
             font-family: inherit;
             margin: 0;
         }
+        
+        .sub_subnav .sub_subnavbtn  {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: #333;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
 
         .navbar a:hover,
-        .subnav:hover .subnavbtn {
+        .subnav:hover .subnavbtn,
+        .sub_subnav:hover .sub_subnavbtn  {
             background-color: white;
             color: #333;
             font-weight: bold;
@@ -52,9 +69,9 @@
         .subnav-content {
             display: none;
             position: absolute;
-            left: 100;
+            left: 300;
             background-color: white;
-            width: 8%;
+            width: 12%;
             z-index: 1;
         }
 
@@ -67,10 +84,34 @@
         .subnav-content a:hover {
             background-color: white;
             font-weight: bold;
-            color: black;
+            color: #333;
         }
 
-        .subnav:hover .subnav-content {
+        .sub_subnav-content {
+            display: none;
+            position: relative;
+            left: 100;
+            background-color: white;
+            width: 100%;
+            z-index: 0;
+        }
+
+        .sub_subnav-content a {
+            font-size: 15px;
+            float: center;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .sub_subnav-content a:hover {
+            font-size: 15px;
+            background-color: white;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .subnav:hover .subnav-content, 
+        .sub_subnav:hover .sub_subnav-content{
             display: block;
         }
     </style>
@@ -78,7 +119,7 @@
 </head>
 
 <body>
-
+    <div id="demo"></div>
     <div id="header">
         <h1> Map 1 </h1>
     </div>
@@ -143,11 +184,27 @@
             </div>
         </div>
         <div class="subnav" id="mumbai">
-            <button class="subnavbtn"> Mumbai <i class="fa fa-caret-down"></i></button>
+            <button class="subnavbtn"> Mumbai </button>
             <div class="subnav-content">
-                <a href="#" onclick=mum(0)> Show Grid </a>
-                <a href="#" onclick=mum(1)> Grid Type </a>
-                <a href="#" onclick=mum(2)> Class Label </a>
+                <div class="sub_subnav">
+                    <button class="sub_subnavbtn"> OSM Based </i></button>
+                    <div class="sub_subnav-content">
+                        <a href="#" onclick=mum(1,1)> Grid Type </a>
+                        <a href="#" onclick=mum(1,2)> Class Label </a>
+                    </div>
+                </div>
+                <div class="sub_subnav">
+                    <button class="sub_subnavbtn"> WorldPop Based </i></button>
+                    <div class="sub_subnav-content">
+                        <a href="#" onclick=mum(2,1)> Population </a>
+                    </div>
+                </div>
+                <div class="sub_subnav">
+                    <button class="sub_subnavbtn"> Google Places Based </i></button>
+                    <div class="sub_subnav-content">
+                        <a href="#" onclick=mum(3,1)> Nearest Connectivity </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -156,10 +213,6 @@
     <script>
         let map;
         let infoWindow;
-        let Grid_type;
-        var gridtypeColor = [];
-        let Class_label;
-        var classlabelColor = [];
 
         var basemap = { lat: 20.59, lng: 78.96 }
         var bangalore = { lat: 12.97, lng: 77.59 }
@@ -170,6 +223,13 @@
         var hyderabad = { lat: 17.38, lng: 78.49 }
         var kolkata = { lat: 22.57, lng: 88.36 }
         var mumbai = { lat: 19.08, lng: 72.88 }
+
+        //OSM Based Indicators - 1
+        //WorldPop Based Indicators - 2
+        //Google Places Based Indicators - 3
+
+        let dataArr;
+        var colArr = [];
 
         function initMap(options) {
             map = new google.maps.Map(document.getElementById("map"), options);
@@ -318,14 +378,21 @@
                     k += 1;
                 }
         }
-        function mum(flag) {
+        function mum(indic, flag) {
             initMap({ zoom: 10, center: mumbai });
 
-            Grid_type = Mumbai_Grid_type;
-            Class_label = Mumbai_Class_label;
+            if (indic == 1) {
+                switch (flag) {
+                    case 1: dataArr = Mumbai_Grid_type; break;
+                    case 2: dataArr = Mumbai_Class_label; break;
+                    default: break;
+                }
+            }
+            if (indic == 2) {
+                dataArr = Mumbai_Grid_Population
+            }
 
-            getColorArrays(Grid_type, gridtypeColor);
-            getColorArrays(Class_label, classlabelColor);
+            getColorArrays(dataArr, colArr);
 
             let k = 0;
             for (let i = 0; i < 22; i++)
@@ -360,7 +427,7 @@
                     strokeOpacity: 0.8,
                     strokeWeight: 1,
                     fillColor: getColor(gridNumber, flag),
-                    fillOpacity: 0.3,
+                    fillOpacity: 1,
                 });
 
             myGrid.setMap(map);
@@ -371,14 +438,8 @@
         function getColor(gridNumber, flag) {
             var color = "#";
             var i = gridNumber;
-
-            if (flag == 0) color += "FFFFFF00"
-            else if (flag == 1) {
-                color += gridtypeColor[i];
-            }
-            else if (flag == 2) {
-                color += classlabelColor[i];
-            }
+            
+            color += colArr[i];
             return color;
         }
 
@@ -387,26 +448,24 @@
             const vertices = polygon.getPath();
             let contentString =
                 "Location: <br>" + event.latLng.lat() + ", " + event.latLng.lng() + "<br>" +
-                "<br>Grid Coordinates: ";
-
-            for (let i = 0; i < vertices.getLength(); i++) {
-                const xy = vertices.getAt(i);
-                contentString += "<br>" + "Coordinate " + (i + 1) + ": " + xy.lat().toFixed(2) + ", " + xy.lng().toFixed(2);
-            }
-
+                "Bottom Left Coordinate: " + vertices.getAt(3).lat().toFixed(2) + ", " + vertices.getAt(0).lng().toFixed(2);
+            
             infoWindow.setContent(contentString);
             infoWindow.setPosition(event.latLng);
             infoWindow.open(map);
         }
 
         function getColorArrays(arr, arrc) {
-        var init = 0;
+            var init = 0;
+            var count = 0;
             for (var x = 1; x < arr.length; x += 2) {
                 init = arr[x];
                 for (var y = 0; y < init; y++) {
-                    arrc.push(_Color(arr[x - 1]))
+                    arrc.push(_Color(arr[x - 1]));
+                    count++
                 }
             }
+            document.getElementById('demo').innerHTML = count
         }
 
         function _Color(type) {
@@ -415,13 +474,16 @@
             else if (type == "PeriUrban") return "FFA500";
             else if (type == "Urban") return "FF0000";
 
-            else if (type == "0.0") return "000000";
-            else if (type == "1.0") return "FFFF00";
-            else if (type == "2.0") return "90EE90";
-            else if (type == "3.0") return "006400";
-            else if (type == "4.0") return "00008b";
-            else if (type == "5.0") return "800080";
-
+            else if (type == "0") return "FF0000"; //RED
+            else if (type == "1") return "FF8C00"; //DARK ORANGE
+            else if (type == "2") return "FED8B1"; //LIGHT ORANGE
+            else if (type == "3") return "FFFF00"; //YELLOW
+            else if (type == "4") return "90EE90"; //LIGHT GREEN
+            else if (type == "5") return "006400"; //DARK GREEN
+            else if (type == "6") return "0000FF"; //BLUE
+            else if (type == "7") return "8A2BE2"; //VIOLET
+            else if (type == "8") return "301934"; //PURPLE
+            else if (type == "9") return "000000"; //BLACK
             else return "FFFFFF";
         }
     </script>
