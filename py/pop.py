@@ -10,7 +10,7 @@ def write(fin, distt):
     df = pd.read_csv(fin)
     arr = df.T.to_numpy()
     prev = ""
-    t = 0
+    t = 1
     count = 1
 
     for r in range (1, np.size(arr, 0)):

@@ -13,20 +13,38 @@ def write(fin, distt):
     f.write("\nvar " + distt + "_Grid_Coordinates = " + str(arr[1][0])) #Grid Coordinates
     compress(arr, df, distt, 7, 8, 0) #Grid Type
 
+    del df ['Grid_number']
     del df ['Grid_coordinates']
     del df ['Grid_type']
     del df ['District_name']
 
     arr = df.T.to_numpy()
-    compress(arr, df, distt, 1, np.size(arr, 0), 1)
+    compress(arr, df, distt, 0, np.size(arr, 0), 1)
 
 def compress(arr, df, distt, ri, rf, flag):
     prev = ""
     for r in range (ri, rf):
         count = 1
+        if (r == 0): #3ways
+            fac = 50
+        elif (r == 1): #4ways
+            fac = 10
+        elif (r == 2): #Road Length
+            fac = 10000
+        elif (r == 3): #Walkability
+            fac = 0.3
+        elif (r == 4): #Urban%
+            fac = 0.1
+        elif (r == 5): #Periurban%
+            fac = 0.1
+        elif (r == 6): #Rural%
+            fac = 0.1
+        elif (r == 7): #Class Label
+            fac = 1
+
         for c in range (0, np.size(arr, 1)):
             if (flag):
-                x = math.floor(arr[r][c])
+                x = math.floor(arr[r][c]/fac)
             else:
                 x = arr[r][c]
 

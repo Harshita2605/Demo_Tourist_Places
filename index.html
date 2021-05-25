@@ -4,10 +4,10 @@
 <head>
     <title> Map 1 </title>
 
-    <script src="js/all.js"></script> 
-    <script src="js/n.js"></script> 
-    <script src="js/num.js"></script> 
-    <script src="js/pop.js"></script> 
+    <script src="js/all.js"></script>
+    <script src="js/n.js"></script>
+    <script src="js/num.js"></script>
+    <script src="js/pop.js"></script>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <style>
@@ -15,12 +15,12 @@
             height: 675px;
             width: 100%;
         }
-
+        
         .navbar {
             overflow: hidden;
             background-color: #333;
         }
-
+        
         .navbar a {
             float: left;
             font-size: 16px;
@@ -29,13 +29,13 @@
             padding: 14px 16px;
             text-decoration: none;
         }
-
+        
         .subnav,
         .sub_subnav {
             float: left;
             overflow: hidden;
         }
-
+        
         .subnav .subnavbtn {
             font-size: 16px;
             border: none;
@@ -47,7 +47,7 @@
             margin: 0;
         }
         
-        .sub_subnav .sub_subnavbtn  {
+        .sub_subnav .sub_subnavbtn {
             font-size: 16px;
             border: none;
             outline: none;
@@ -57,15 +57,15 @@
             font-family: inherit;
             margin: 0;
         }
-
+        
         .navbar a:hover,
         .subnav:hover .subnavbtn,
-        .sub_subnav:hover .sub_subnavbtn  {
+        .sub_subnav:hover .sub_subnavbtn {
             background-color: white;
             color: #333;
             font-weight: bold;
         }
-
+        
         .subnav-content {
             display: none;
             position: absolute;
@@ -74,19 +74,19 @@
             width: 12%;
             z-index: 1;
         }
-
+        
         .subnav-content a {
             float: center;
             color: #333;
             text-decoration: none;
         }
-
+        
         .subnav-content a:hover {
             background-color: white;
             font-weight: bold;
             color: #333;
         }
-
+        
         .sub_subnav-content {
             display: none;
             position: relative;
@@ -95,23 +95,23 @@
             width: 100%;
             z-index: 0;
         }
-
+        
         .sub_subnav-content a {
             font-size: 15px;
             float: center;
             color: #333;
             text-decoration: none;
         }
-
+        
         .sub_subnav-content a:hover {
             font-size: 15px;
             background-color: white;
             font-weight: bold;
             color: #333;
         }
-
-        .subnav:hover .subnav-content, 
-        .sub_subnav:hover .sub_subnav-content{
+        
+        .subnav:hover .subnav-content,
+        .sub_subnav:hover .sub_subnav-content {
             display: block;
         }
     </style>
@@ -127,7 +127,8 @@
         <div class="subnav" id="basemap">
             <button class="subnavbtn"> Basemap <i class="fa fa-caret-down"></i></button>
         </div>
-        <div class="subnav" id="bangalore">
+
+        <!-- <div class="subnav" id="bangalore">
             <button class="subnavbtn"> Bangalore <i class="fa fa-caret-down"></i></button>
             <div class="subnav-content">
                 <a href="#" onclick=ban(0)> Show Grid </a>
@@ -182,17 +183,11 @@
                 <a href="#" onclick=kol(1)> Grid Type </a>
                 <a href="#" onclick=kol(2)> Class Label </a>
             </div>
-        </div>
+        </div> -->
+
         <div class="subnav" id="mumbai">
             <button class="subnavbtn"> Mumbai </button>
             <div class="subnav-content">
-                <div class="sub_subnav">
-                    <button class="sub_subnavbtn"> OSM Based </i></button>
-                    <div class="sub_subnav-content">
-                        <a href="#" onclick=mum(1,1)> Grid Type </a>
-                        <a href="#" onclick=mum(1,2)> Class Label </a>
-                    </div>
-                </div>
                 <div class="sub_subnav">
                     <button class="sub_subnavbtn"> WorldPop Based </i></button>
                     <div class="sub_subnav-content">
@@ -200,9 +195,31 @@
                     </div>
                 </div>
                 <div class="sub_subnav">
+                    <button class="sub_subnavbtn"> OSM Based </i></button>
+                    <div class="sub_subnav-content">
+                        <a href="#" onclick=mum(1,1)> Grid Type </a>
+                        <a href="#" onclick=mum(1,2)> Class Label </a>
+                        <a href="#" onclick=mum(1,3)> Three Ways </a>
+                        <a href="#" onclick=mum(1,4)> Four Ways </a>
+                        <a href="#" onclick=mum(1,5)> Urban Percentage</a>
+                        <a href="#" onclick=mum(1,6)> PeriUrban Percentage </a>
+                        <a href="#" onclick=mum(1,7)> Rural Percentage </a>
+                        <a href="#" onclick=mum(1,8)> Walkability </a>
+                    </div>
+                </div>
+                <div class="sub_subnav">
                     <button class="sub_subnavbtn"> Google Places Based </i></button>
                     <div class="sub_subnav-content">
                         <a href="#" onclick=mum(3,1)> Nearest Connectivity </a>
+                        <a href="#" onclick=mum(3,2)> Num Connectivity </a>
+                        <a href="#" onclick=mum(3,3)> Nearest Education </a>
+                        <a href="#" onclick=mum(3,4)> Num Education </a>
+                        <a href="#" onclick=mum(3,5)> Nearest GovtFac </a>
+                        <a href="#" onclick=mum(3,6)> Num GovtFac </a>
+                        <a href="#" onclick=mum(3,7)> Nearest Health </a>
+                        <a href="#" onclick=mum(3,8)> Num Health </a>
+                        <a href="#" onclick=mum(3,9)> Nearest Utilities </a>
+                        <a href="#" onclick=mum(3,10)> Num Utilities </a>
                     </div>
                 </div>
             </div>
@@ -214,19 +231,42 @@
         let map;
         let infoWindow;
 
-        var basemap = { lat: 20.59, lng: 78.96 }
-        var bangalore = { lat: 12.97, lng: 77.59 }
-        var chandigarh = { lat: 30.73, lng: 76.78 }
-        var chennai = { lat: 13.08, lng: 80.27 }
-        var delhi = { lat: 28.70, lng: 77.10 }
-        var gurgaon = { lat: 28.46, lng: 77.03 }
-        var hyderabad = { lat: 17.38, lng: 78.49 }
-        var kolkata = { lat: 22.57, lng: 88.36 }
-        var mumbai = { lat: 19.08, lng: 72.88 }
-
-        //OSM Based Indicators - 1
-        //WorldPop Based Indicators - 2
-        //Google Places Based Indicators - 3
+        var basemap = {
+            lat: 20.59,
+            lng: 78.96
+        }
+        var bangalore = {
+            lat: 12.97,
+            lng: 77.59
+        }
+        var chandigarh = {
+            lat: 30.73,
+            lng: 76.78
+        }
+        var chennai = {
+            lat: 13.08,
+            lng: 80.27
+        }
+        var delhi = {
+            lat: 28.70,
+            lng: 77.10
+        }
+        var gurgaon = {
+            lat: 28.46,
+            lng: 77.03
+        }
+        var hyderabad = {
+            lat: 17.38,
+            lng: 78.49
+        }
+        var kolkata = {
+            lat: 22.57,
+            lng: 88.36
+        }
+        var mumbai = {
+            lat: 19.08,
+            lng: 72.88
+        }
 
         let dataArr;
         var colArr = [];
@@ -235,45 +275,48 @@
             map = new google.maps.Map(document.getElementById("map"), options);
         }
 
-        document.getElementById("basemap").addEventListener("click", function () {
+        document.getElementById("basemap").addEventListener("click", function() {
             map.setCenter(basemap);
             map.setZoom(5);
         })
-        document.getElementById("bangalore").addEventListener("click", function () {
+        document.getElementById("bangalore").addEventListener("click", function() {
             map.setCenter(bangalore);
             map.setZoom(10);
         })
-        document.getElementById("chandigarh").addEventListener("click", function () {
+        document.getElementById("chandigarh").addEventListener("click", function() {
             map.setCenter(chandigarh);
             map.setZoom(10);
         })
-        document.getElementById("chennai").addEventListener("click", function () {
+        document.getElementById("chennai").addEventListener("click", function() {
             map.setCenter(chennai);
             map.setZoom(10);
         })
-        document.getElementById("delhi").addEventListener("click", function () {
+        document.getElementById("delhi").addEventListener("click", function() {
             map.setCenter(delhi);
             map.setZoom(10);
         })
-        document.getElementById("gurgaon").addEventListener("click", function () {
+        document.getElementById("gurgaon").addEventListener("click", function() {
             map.setCenter(gurgaon);
             map.setZoom(10);
         })
-        document.getElementById("hyderabad").addEventListener("click", function () {
+        document.getElementById("hyderabad").addEventListener("click", function() {
             map.setCenter(hyderabad);
             map.setZoom(10);
         })
-        document.getElementById("kolkata").addEventListener("click", function () {
+        document.getElementById("kolkata").addEventListener("click", function() {
             map.setCenter(kolkata);
             map.setZoom(10);
         })
-        document.getElementById("mumbai").addEventListener("click", function () {
+        document.getElementById("mumbai").addEventListener("click", function() {
             map.setCenter(mumbai);
             map.setZoom(10);
         })
 
         function ban(flag) {
-            initMap({ zoom: 10, center: bangalore });
+            initMap({
+                zoom: 10,
+                center: bangalore
+            });
 
             Grid_type = Bangalore_Grid_type;
             Class_label = Bangalore_Class_label;
@@ -284,22 +327,42 @@
             let k = 0;
             for (let i = 0; i < 51; i++)
                 for (let j = 0; j < 59; j++) {
-                    setCoords({ properties: { lat: Bangalore_Grid_Coordinates[0] + 0.01 * j, lng: Bangalore_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
+                    setCoords({
+                        properties: {
+                            lat: Bangalore_Grid_Coordinates[0] + 0.01 * j,
+                            lng: Bangalore_Grid_Coordinates[1] + 0.01 * i,
+                            num: k
+                        }
+                    }, flag);
                     k += 1;
                 }
         }
+
         function chd(flag) {
-            initMap({ zoom: 10, center: chandigarh });
+            initMap({
+                zoom: 10,
+                center: chandigarh
+            });
 
             let k = 0;
             for (let i = 0; i < 15; i++)
                 for (let j = 0; j < 14; j++) {
-                    setCoords({ properties: { lat: 30.66 + 0.01 * j, lng: 76.69 + 0.01 * i, num: k } }, flag);
+                    setCoords({
+                        properties: {
+                            lat: 30.66 + 0.01 * j,
+                            lng: 76.69 + 0.01 * i,
+                            num: k
+                        }
+                    }, flag);
                     k += 1;
                 }
         }
+
         function chn(flag) {
-            initMap({ zoom: 10, center: chennai });
+            initMap({
+                zoom: 10,
+                center: chennai
+            });
 
             Grid_type = Chennai_Grid_type;
             Class_label = Chennai_Class_label;
@@ -310,28 +373,48 @@
             let k = 0;
             for (let i = 0; i < 15; i++)
                 for (let j = 0; j < 19; j++) {
-                    setCoords({ properties: { lat: Chennai_Grid_Coordinates[0] + 0.01 * j, lng: Chennai_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
+                    setCoords({
+                        properties: {
+                            lat: Chennai_Grid_Coordinates[0] + 0.01 * j,
+                            lng: Chennai_Grid_Coordinates[1] + 0.01 * i,
+                            num: k
+                        }
+                    }, flag);
                     k += 1;
                 }
         }
+
         function del(flag) {
-            initMap({ zoom: 10, center: delhi });
+            initMap({
+                zoom: 10,
+                center: delhi
+            });
 
             Grid_type = Delhi_Grid_type;
             Class_label = Delhi_Class_label;
 
             getColorArrays(Grid_type, gridtypeColor);
             getColorArrays(Class_label, classlabelColor);
-            
+
             let k = 0;
             for (let i = 0; i < 51; i++)
                 for (let j = 0; j < 49; j++) {
-                    setCoords({ properties: { lat: Delhi_Grid_Coordinates[0] + 0.01 * j, lng: Delhi_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
+                    setCoords({
+                        properties: {
+                            lat: Delhi_Grid_Coordinates[0] + 0.01 * j,
+                            lng: Delhi_Grid_Coordinates[1] + 0.01 * i,
+                            num: k
+                        }
+                    }, flag);
                     k += 1;
                 }
         }
+
         function gur(flag) {
-            initMap({ zoom: 10, center: gurgaon });
+            initMap({
+                zoom: 10,
+                center: gurgaon
+            });
 
             Grid_type = Gurgaon_Grid_type;
             Class_label = Gurgaon_Class_label;
@@ -342,12 +425,22 @@
             let k = 0;
             for (let i = 0; i < 61; i++)
                 for (let j = 0; j < 35; j++) {
-                    setCoords({ properties: { lat: Gurgaon_Grid_Coordinates[0] + 0.01 * j, lng: Gurgaon_Grid_Coordinates[0] + 0.01 * i, num: k } }, flag);
+                    setCoords({
+                        properties: {
+                            lat: Gurgaon_Grid_Coordinates[0] + 0.01 * j,
+                            lng: Gurgaon_Grid_Coordinates[0] + 0.01 * i,
+                            num: k
+                        }
+                    }, flag);
                     k += 1;
                 }
         }
+
         function hyd(flag) {
-            initMap({ zoom: 10, center: hyderabad });
+            initMap({
+                zoom: 10,
+                center: hyderabad
+            });
 
             Grid_type = Hyderabad_Grid_type;
             Class_label = Hyderabad_Class_label;
@@ -358,12 +451,22 @@
             let k = 0;
             for (let i = 0; i < 16; i++)
                 for (let j = 0; j < 19; j++) {
-                    setCoords({ properties: { lat: Hyderabad_Grid_Coordinates[0] + 0.01 * j, lng: Hyderabad_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
+                    setCoords({
+                        properties: {
+                            lat: Hyderabad_Grid_Coordinates[0] + 0.01 * j,
+                            lng: Hyderabad_Grid_Coordinates[1] + 0.01 * i,
+                            num: k
+                        }
+                    }, flag);
                     k += 1;
                 }
         }
+
         function kol(flag) {
-            initMap({ zoom: 10, center: kolkata });
+            initMap({
+                zoom: 10,
+                center: kolkata
+            });
 
             Grid_type = Kolkata_Grid_type;
             Class_label = Kolkata_Class_label;
@@ -374,22 +477,91 @@
             let k = 0;
             for (let i = 0; i < 14; i++)
                 for (let j = 0; j < 14; j++) {
-                    setCoords({ properties: { lat: Kolkata_Grid_Coordinates[0] + 0.01 * j, lng: Kolkata_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
+                    setCoords({
+                        properties: {
+                            lat: Kolkata_Grid_Coordinates[0] + 0.01 * j,
+                            lng: Kolkata_Grid_Coordinates[1] + 0.01 * i,
+                            num: k
+                        }
+                    }, flag);
                     k += 1;
                 }
         }
+
         function mum(indic, flag) {
-            initMap({ zoom: 10, center: mumbai });
+            initMap({
+                zoom: 10,
+                center: mumbai
+            });
 
             if (indic == 1) {
                 switch (flag) {
-                    case 1: dataArr = Mumbai_Grid_type; break;
-                    case 2: dataArr = Mumbai_Class_label; break;
-                    default: break;
+                    case 1:
+                        dataArr = Mumbai_Grid_type;
+                        break;
+                    case 2:
+                        dataArr = Mumbai_Class_label;
+                        break;
+                    case 3:
+                        dataArr = Mumbai_Three_ways;
+                        break;
+                    case 4:
+                        dataArr = Mumbai_Four_ways;
+                        break;
+                    case 5:
+                        dataArr = Mumbai_Urban_percentage;
+                        break;
+                    case 6:
+                        dataArr = Mumbai_Periurban_percentage;
+                        break;
+                    case 7:
+                        dataArr = Mumbai_Rural_percentage;
+                        break;
+                    case 8:
+                        dataArr = Mumbai_Walkability_ratio;
+                        break;
+                    default:
+                        break;
                 }
             }
             if (indic == 2) {
                 dataArr = Mumbai_Grid_Population
+            }
+            if (indic == 3) {
+                switch (flag) {
+                    case 1:
+                        dataArr = Mumbai_n_Connectivity;
+                        break;
+                    case 2:
+                        dataArr = Mumbai_num_Connectivity;
+                        break;
+                    case 3:
+                        dataArr = Mumbai_n_Education;
+                        break;
+                    case 4:
+                        dataArr = Mumbai_num_Education;
+                        break;
+                    case 5:
+                        dataArr = Mumbai_n_Government_Facilities;
+                        break;
+                    case 6:
+                        dataArr = Mumbai_num_Government_Facilities;
+                        break;
+                    case 7:
+                        dataArr = Mumbai_n_Health;
+                        break;
+                    case 8:
+                        dataArr = Mumbai_num_Health;
+                        break;
+                    case 9:
+                        dataArr = Mumbai_n_Utilities;
+                        break;
+                    case 10:
+                        dataArr = Mumbai_num_Utilities;
+                        break;
+                    default:
+                        break;
+                }
             }
 
             getColorArrays(dataArr, colArr);
@@ -397,11 +569,17 @@
             let k = 0;
             for (let i = 0; i < 22; i++)
                 for (let j = 0; j < 38; j++) {
-                    setCoords({ properties: { lat: Mumbai_Grid_Coordinates[0] + 0.01 * j, lng: Mumbai_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
+                    setCoords({
+                        properties: {
+                            lat: Mumbai_Grid_Coordinates[0] + 0.01 * j,
+                            lng: Mumbai_Grid_Coordinates[1] + 0.01 * i,
+                            num: k
+                        }
+                    }, flag);
                     k += 1;
                 }
         }
-  
+
         function setCoords(props, flag) {
             var gridNumber = props.properties.num
             var lat1 = props.properties.lat
@@ -413,22 +591,27 @@
             var lat4 = props.properties.lat
             var lng4 = props.properties.lng + 0.01
 
-            const myGrid = new google.maps.Polygon
-                ({
-                    paths:
-                        [
-                            { lat: lat1, lng: lng1 },
-                            { lat: lat2, lng: lng2 },
-                            { lat: lat3, lng: lng3 },
-                            { lat: lat4, lng: lng4 },
-                        ],
+            const myGrid = new google.maps.Polygon({
+                paths: [{
+                    lat: lat1,
+                    lng: lng1
+                }, {
+                    lat: lat2,
+                    lng: lng2
+                }, {
+                    lat: lat3,
+                    lng: lng3
+                }, {
+                    lat: lat4,
+                    lng: lng4
+                }, ],
 
-                    strokeColor: "#000000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 1,
-                    fillColor: getColor(gridNumber, flag),
-                    fillOpacity: 1,
-                });
+                strokeColor: "#000000",
+                strokeOpacity: 0.8,
+                strokeWeight: 1,
+                fillColor: getColor(gridNumber, flag),
+                fillOpacity: 1,
+            });
 
             myGrid.setMap(map);
             myGrid.addListener("click", showArrays);
@@ -438,7 +621,7 @@
         function getColor(gridNumber, flag) {
             var color = "#";
             var i = gridNumber;
-            
+
             color += colArr[i];
             return color;
         }
@@ -449,48 +632,42 @@
             let contentString =
                 "Location: <br>" + event.latLng.lat() + ", " + event.latLng.lng() + "<br>" +
                 "Bottom Left Coordinate: " + vertices.getAt(3).lat().toFixed(2) + ", " + vertices.getAt(0).lng().toFixed(2);
-            
+
             infoWindow.setContent(contentString);
             infoWindow.setPosition(event.latLng);
             infoWindow.open(map);
         }
 
         function getColorArrays(arr, arrc) {
+            arrc.length = 0;
             var init = 0;
-            var count = 0;
             for (var x = 1; x < arr.length; x += 2) {
                 init = arr[x];
                 for (var y = 0; y < init; y++) {
                     arrc.push(_Color(arr[x - 1]));
-                    count++
                 }
             }
-            document.getElementById('demo').innerHTML = count
         }
 
         function _Color(type) {
-            if (type == "Rejected") return "000000";
-            else if (type == "Rural") return "FFFF00";
-            else if (type == "PeriUrban") return "FFA500";
-            else if (type == "Urban") return "FF0000";
+            if (type == "0" || type == "Rejected") return "000000"; //BLACK
+            else if (type == "1" || type == "Rural") return "481567";
+            else if (type == "2" || type == "PeriUrban") return "453781";
+            else if (type == "3" || type == "Urban") return "39569C";
+            else if (type == "4") return "2D708E";
+            else if (type == "5") return "238A8D";
+            else if (type == "6") return "20A387";
+            else if (type == "7") return "3CBB75";
+            else if (type == "8") return "95D840";
+            else if (type == "9") return "FDE725";
+            else if (type == "10") return "FFFF99";
 
-            else if (type == "0") return "FF0000"; //RED
-            else if (type == "1") return "FF8C00"; //DARK ORANGE
-            else if (type == "2") return "FED8B1"; //LIGHT ORANGE
-            else if (type == "3") return "FFFF00"; //YELLOW
-            else if (type == "4") return "90EE90"; //LIGHT GREEN
-            else if (type == "5") return "006400"; //DARK GREEN
-            else if (type == "6") return "0000FF"; //BLUE
-            else if (type == "7") return "8A2BE2"; //VIOLET
-            else if (type == "8") return "301934"; //PURPLE
-            else if (type == "9") return "000000"; //BLACK
             else return "FFFFFF";
         }
     </script>
 
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap">
-        </script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap">
+    </script>
 </body>
 
 </html>

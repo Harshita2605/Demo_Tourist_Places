@@ -6,16 +6,16 @@ import sys
 fout = "js/num.js"
 f = open(fout, "w")
 
-def write(fin, distt):
+def write(fin, distt, fac):
     df = pd.read_csv(fin)
     arr = df.T.to_numpy()
     prev = ""
-    t = 0
+    t = 1
     count = 1
 
     for r in range (1, np.size(arr, 0)):
         for c in range (0, np.size(arr, 1)):
-            x = math.floor(arr[r][c]/150) # x_max = 9
+            x = math.floor(arr[r][c]/fac)
             if c == 0:
                 f.write("\nvar " + distt + "_" + str(df.columns[r]) + " = [")
                 t = 0
@@ -36,10 +36,10 @@ def write(fin, distt):
     f.write("\n")
     f.write(str(count) + "\n")
 
-write("mumbai/num_connectivity.csv", "Mumbai")
-write("mumbai/num_education.csv", "Mumbai")
-write("mumbai/num_govt_fac.csv", "Mumbai")
-write("mumbai/num_health.csv", "Mumbai")
-write("mumbai/num_utility.csv", "Mumbai")
+write("mumbai/num_connectivity.csv", "Mumbai", 20)
+write("mumbai/num_education.csv", "Mumbai", 150)
+write("mumbai/num_govt_fac.csv", "Mumbai", 150)
+write("mumbai/num_health.csv", "Mumbai", 200)
+write("mumbai/num_utility.csv", "Mumbai", 50)
 
 f.close()
