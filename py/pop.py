@@ -15,7 +15,7 @@ def write(fin, distt):
 
     for r in range (1, np.size(arr, 0)):
         for c in range (0, np.size(arr, 1)):
-            x = math.floor(arr[r][c]/8000) # x_max = 9
+            x = math.floor(arr[r][c]/10000)
             if c == 0:
                 f.write("\nvar " + distt + "_" + str(df.columns[r]) + " = [")
                 t = 0
