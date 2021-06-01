@@ -1,4 +1,4 @@
-Grid_number,Grid_coordinates,Three_ways,Four_ways,Road_length,Walkability_ratio,District_name,Grid_type,Urban_percentage,Periurban_percentage,Rural_percentage,Class_label
+Grid_Number,Grid_coordinates,Three_ways,Four_ways,Road_length,Walkability_ratio,District_name,Grid_type,Urban_percentage,Periurban_percentage,Rural_percentage,Class_label
 0,"[18.89, 72.77]",0,0,0.0,0.0,Mumbai,Rejected,0.0,0.0,0.0,0.0
 1,"[18.9, 72.77]",0,0,0.0,0.0,Mumbai,Rejected,0.0,0.0,0.0,0.0
 2,"[18.91, 72.77]",0,0,0.0,0.0,Mumbai,Rejected,0.0,0.0,0.0,0.0

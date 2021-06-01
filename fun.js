@@ -32,7 +32,7 @@ function setCoords(props, flag, mapx) {
     });
 
     myGrid.setMap(mapx);
-    myGrid.addListener("click", showArrays);
+    myGrid.addListener("click", showArrays(mapx));
     infoWindow = new google.maps.InfoWindow();
 }
 
@@ -44,7 +44,7 @@ function getColor(gridNumber, flag) {
     return color;
 }
 
-function showArrays(event) {
+function showArrays(event, mapx) {
     const polygon = this;
     const vertices = polygon.getPath();
     let contentString =
@@ -53,23 +53,25 @@ function showArrays(event) {
 
     infoWindow.setContent(contentString);
     infoWindow.setPosition(event.latLng);
-    infoWindow.open(map);
+    infoWindow.open(mapx);
 }
 
 function getColorArrays(arr, arrc) {
-    arrc.length = 0;
-    var init = 0;
-    for (var x = 1; x < arr.length; x += 2) {
-        init = arr[x];
-        for (var y = 0; y < init; y++) {
-            arrc.push(_Color(arr[x - 1]));
-        }
-    }
+    var x;
+    arrc.length = Mumbai_Number;
+    for (x = 0; x < Mumbai_Rejected.length; x++)
+        arrc[x] = "000000"
+
+    for (x = 0; x < Mumbai_Rural.length; x++)
+        arrc[x] = "FFFFFF"
+
+    for (x = 0; x < arr.length; x++)
+        arrc[Mumbai_Grid_Number[x]] = _Color[arr[x]]
 }
 
 function _Color(type) {
     if (type == "0" || type == "Rejected") return "000000"; //BLACK
-    else if (type == "1" || type == "Rural") return "481567";
+    else if (type == "1" || type == "Rural") return "FFFFFF";
     else if (type == "2" || type == "PeriUrban") return "453781";
     else if (type == "3" || type == "Urban") return "39569C";
     else if (type == "4") return "2D708E";
@@ -79,6 +81,5 @@ function _Color(type) {
     else if (type == "8") return "95D840";
     else if (type == "9") return "FDE725";
     else if (type == "10") return "FFFF99";
-
     else return "FFFFFF";
 }

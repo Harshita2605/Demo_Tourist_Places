@@ -1,3 +1,11 @@
+body {
+    margin: 100px 100px;
+    font-family: 'Open Sans', 'serif';
+    font-size: 14px;
+    text-align: justify;
+    /*overflow: auto;*/
+}
+
 .map {
     height: 250px;
     width: 100%;
@@ -8,6 +16,7 @@
 
 .accordion {
     background-color: #eee;
+    height: max-content;
     color: #444;
     cursor: pointer;
     padding: 18px;
@@ -160,6 +169,7 @@
 .t {
     cursor: pointer;
     border-radius: 8px;
+    background-color: black;
 }
 
 #t1 {
