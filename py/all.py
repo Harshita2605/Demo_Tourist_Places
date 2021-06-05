@@ -65,8 +65,15 @@ def compress(arr, df, distt, ri, rf, flag):
                     prev = str(x)
                     t = 1
         f.write(", " + str(t) + "]")
-        f.write("\n")
-        f.write(str(count) + "\n")
+        #f.write("\n")
+        #f.write(str(count) + "\n")
 
-write("mumbai/all.csv", "Mumbai")
+write("cities/ban/all.csv", "Ban")
+write("cities/che/all.csv", "Che")
+write("cities/del/all.csv", "Del")
+write("cities/gur/all.csv", "Gur")
+write("cities/hyd/all.csv", "Hyd")
+write("cities/kol/all.csv", "Kol")
+write("cities/mum/all.csv", "Mum")
+
 f.close()

@@ -1,3 +1,4 @@
+from glob import glob
 import pandas as pd
 import numpy as np
 import math
@@ -33,13 +34,21 @@ def write(fin, distt, fac):
                     prev = str(x)
                     t = 1
         f.write(", " + str(t) + "]")
-    f.write("\n")
-    f.write(str(count) + "\n")
+    #f.write("\n")
+    #f.write(str(count) + "\n")
 
-write("mumbai/num_connectivity.csv", "Mumbai", 20)
+""" write("mumbai/num_connectivity.csv", "Mumbai", 20)
 write("mumbai/num_education.csv", "Mumbai", 150)
 write("mumbai/num_govt_fac.csv", "Mumbai", 150)
 write("mumbai/num_health.csv", "Mumbai", 200)
-write("mumbai/num_utility.csv", "Mumbai", 50)
+write("mumbai/num_utility.csv", "Mumbai", 50) """
+
+for file in sorted(glob('cities/ban/num/*.csv')): write(file, "Ban", 20)
+for file in sorted(glob('cities/che/num/*.csv')): write(file, "Che", 20)
+for file in sorted(glob('cities/del/num/*.csv')): write(file, "Del", 20)
+for file in sorted(glob('cities/gur/num/*.csv')): write(file, "Gur", 20)
+for file in sorted(glob('cities/hyd/num/*.csv')): write(file, "Hyd", 20)
+for file in sorted(glob('cities/kol/num/*.csv')): write(file, "Kol", 20)
+for file in sorted(glob('cities/mum/num/*.csv')): write(file, "Mum", 20)
 
 f.close()

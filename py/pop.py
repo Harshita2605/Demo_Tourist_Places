@@ -6,7 +6,7 @@ import sys
 fout = "js/pop.js"
 f = open(fout, "w")
 
-def write(fin, distt):
+def write(fin, distt, fac):
     df = pd.read_csv(fin)
     arr = df.T.to_numpy()
     prev = ""
@@ -15,7 +15,7 @@ def write(fin, distt):
 
     for r in range (1, np.size(arr, 0)):
         for c in range (0, np.size(arr, 1)):
-            x = math.floor(arr[r][c]/10000)
+            x = math.floor(arr[r][c]/fac)
             if c == 0:
                 f.write("\nvar " + distt + "_" + str(df.columns[r]) + " = [")
                 t = 0
@@ -33,8 +33,15 @@ def write(fin, distt):
                     prev = str(x)
                     t = 1
         f.write(", " + str(t) + "]")
-    f.write("\n")
-    f.write(str(count) + "\n")
+    #f.write("\n")
+    #f.write(str(count) + "\n")
 
-write("mumbai/population.csv", "Mumbai")
+write("cities/ban/pop.csv", "Ban", 10000)
+write("cities/che/pop.csv", "Che", 10000)
+write("cities/del/pop.csv", "Del", 10000)
+write("cities/gur/pop.csv", "Gur", 10000)
+write("cities/hyd/pop.csv", "Hyd", 10000)
+write("cities/kol/pop.csv", "Kol", 10000)
+write("cities/mum/pop.csv", "Mum", 10000)
+
 f.close()

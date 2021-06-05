@@ -1,4 +1,4 @@
-function setCoords(props, flag, mapx) {
+function setCoords(props, mapx) {
     var gridNumber = props.properties.num
     var lat1 = props.properties.lat
     var lng1 = props.properties.lng
@@ -27,7 +27,7 @@ function setCoords(props, flag, mapx) {
         strokeColor: "#000000",
         strokeOpacity: 0.8,
         strokeWeight: 1,
-        fillColor: getColor(gridNumber, flag),
+        fillColor: getColor(gridNumber),
         fillOpacity: 1,
     });
 
@@ -36,7 +36,7 @@ function setCoords(props, flag, mapx) {
     infoWindow = new google.maps.InfoWindow();
 }
 
-function getColor(gridNumber, flag) {
+function getColor(gridNumber) {
     var color = "#";
     var i = gridNumber;
 
