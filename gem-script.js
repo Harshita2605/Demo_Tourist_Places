@@ -16,97 +16,79 @@ var hyderabad = { lat: 17.38, lng: 78.49 }
 var kolkata = { lat: 22.57, lng: 88.36 }
 var mumbai = { lat: 19.08, lng: 72.88 }
 
-function initMap() {
-    var op = {
-        zoom: 5,
-        center: basemap
-    }
+var op = { zoom: 5, center: basemap };
 
+function initMap() {
+    initMap1(1);
+    initMap2(1);
+    initMap3(1);
+}
+
+function initMap1(flag) {
     //OSM
     map1 = new google.maps.Map(document.getElementById("map1"), op);
-    ban(1, 1, map1);
-
     map2 = new google.maps.Map(document.getElementById("map2"), op);
-    che(1, 1, map2);
-
     map3 = new google.maps.Map(document.getElementById("map3"), op);
-    del(1, 1, map3);
-
     map4 = new google.maps.Map(document.getElementById("map4"), op);
-    gur(1, 1, map4);
-
     map5 = new google.maps.Map(document.getElementById("map5"), op);
-    hyd(1, 1, map5);
-
     map6 = new google.maps.Map(document.getElementById("map6"), op);
-    kol(1, 1, map6);
-
     map7 = new google.maps.Map(document.getElementById("map7"), op);
-    mum(1, 1, map7);
 
+    catmap(flag);
+}
+
+function initMap2(flag) {
     //POPULATION
     map8 = new google.maps.Map(document.getElementById("map8"), op);
-    ban(2, 1, map8);
-
     map9 = new google.maps.Map(document.getElementById("map9"), op);
-    che(2, 1, map9);
-
     map10 = new google.maps.Map(document.getElementById("map10"), op);
-    del(2, 1, map10);
-
     map11 = new google.maps.Map(document.getElementById("map11"), op);
-    gur(2, 1, map11);
-
     map12 = new google.maps.Map(document.getElementById("map12"), op);
-    hyd(2, 1, map12);
-
     map13 = new google.maps.Map(document.getElementById("map13"), op);
-    kol(2, 1, map13);
-
     map14 = new google.maps.Map(document.getElementById("map14"), op);
-    mum(2, 1, map14);
 
+    popmap(flag);
+}
+
+function initMap3(flag) {
     //NEAREST AMENITY
     map15 = new google.maps.Map(document.getElementById("map15"), op);
-    ban(3, 1, map15);
-
     map16 = new google.maps.Map(document.getElementById("map16"), op);
-    che(3, 1, map16);
-
     map17 = new google.maps.Map(document.getElementById("map17"), op);
-    del(3, 1, map17);
-
     map18 = new google.maps.Map(document.getElementById("map18"), op);
-    gur(3, 1, map18);
-
     map19 = new google.maps.Map(document.getElementById("map19"), op);
-    hyd(3, 1, map19);
-
     map20 = new google.maps.Map(document.getElementById("map20"), op);
-    kol(3, 1, map20);
-
     map21 = new google.maps.Map(document.getElementById("map21"), op);
-    mum(3, 1, map21);
+
+    nmap(flag);
 }
 
 function catmap(flag) {
     ban(1, flag, map1);
-
-    //map2 = new google.maps.Map(document.getElementById("map2"), op);
     che(1, flag, map2);
-
-    //map3 = new google.maps.Map(document.getElementById("map3"), op);
     del(1, flag, map3);
-
-    //map4 = new google.maps.Map(document.getElementById("map4"), op);
     gur(1, flag, map4);
-
-    //map5 = new google.maps.Map(document.getElementById("map5"), op);
     hyd(1, flag, map5);
-
-    //map6 = new google.maps.Map(document.getElementById("map6"), op);
     kol(1, flag, map6);
-
-    //map7 = new google.maps.Map(document.getElementById("map7"), op);
     mum(1, flag, map7);
+}
+
+function popmap(flag) {
+    ban(2, flag, map8);
+    che(2, flag, map9);
+    del(2, flag, map10);
+    gur(2, flag, map11);
+    hyd(2, flag, map12);
+    kol(2, flag, map13);
+    mum(2, flag, map14);
+}
+
+function nmap(flag) {
+    ban(3, flag, map15);
+    che(3, flag, map16);
+    del(3, flag, map17);
+    gur(3, flag, map18);
+    hyd(3, flag, map19);
+    kol(3, flag, map20);
+    mum(3, flag, map21);
 }
