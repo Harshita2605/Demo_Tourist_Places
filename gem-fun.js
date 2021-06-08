@@ -28,7 +28,7 @@ function setCoords(props, mapx) {
         strokeOpacity: 0.8,
         strokeWeight: 1,
         fillColor: getColor(gridNumber),
-        fillOpacity: 1,
+        fillOpacity: getOpacity(gridNumber),
     });
 
     myGrid.setMap(mapx);
@@ -38,10 +38,55 @@ function setCoords(props, mapx) {
 
 function getColor(gridNumber) {
     var color = "#";
-    var i = gridNumber;
+    /* var index = 0;
+    for (var x = 1; x < gtype.length; x += 2)
+        if (gridNumber >= index + gtype[x]) index += gtype[x];
+        else {
+            if (gtype[x - 1] == "Rejected") color += "000000";
+            else if (gtype[x - 1] == "Rural") color += "FFFFFF";
+            else color += colArr[gridNumber];
+        } */
 
-    color += colArr[i];
+    color += colArr[gridNumber];
     return color;
+}
+
+function getColorArrays(arr, arrc) {
+    arrc.length = 0;
+    var init = 0;
+    for (var x = 1; x < arr.length; x += 2) {
+        init = arr[x];
+        for (var y = 0; y < init; y++) arrc.push(_Color(arr[x - 1]));
+    }
+}
+
+function getOpacity(gridNumber) {
+    document.getElementById("demo").innerHTML = "hello";
+    var index = 0;
+    for (var x = 1; x < gtype.length; x += 2)
+        if (gridNumber >= index + gtype[x]) index += gtype[x];
+        else {
+            if (gtype[x - 1] == "Rejected" || gtype[x - 1] == "Rural") return 0;
+            else return 1;
+        }
+    return 1;
+}
+
+function _Color(type) {
+    if (type == "Rejected") return "000000";
+    else if (type == "0") return "444444";
+    else if (type == "1") return "481567";
+    else if (type == "2" || type == "Urban") return "453781";
+    else if (type == "3") return "39569C";
+    else if (type == "4") return "2D708E";
+    else if (type == "5") return "238A8D";
+    else if (type == "6") return "20A387";
+    else if (type == "7" || type == "PeriUrban") return "3CBB75";
+    else if (type == "8") return "95D840";
+    else if (type == "9") return "FDE725";
+    else if (type == "10") return "FFFF99";
+
+    else return "FFFFFF";
 }
 
 function showArrays(event) {
@@ -54,31 +99,4 @@ function showArrays(event) {
     infoWindow.setContent(contentString);
     infoWindow.setPosition(event.latLng);
     infoWindow.open(map);
-}
-
-function getColorArrays(arr, arrc) {
-    arrc.length = 0;
-    var init = 0;
-    for (var x = 1; x < arr.length; x += 2) {
-        init = arr[x];
-        for (var y = 0; y < init; y++) {
-            arrc.push(_Color(arr[x - 1]));
-        }
-    }
-}
-
-function _Color(type) {
-    if (type == "0" || type == "Rejected") return "000000"; //BLACK
-    else if (type == "1" || type == "Rural") return "481567";
-    else if (type == "2" || type == "PeriUrban") return "453781";
-    else if (type == "3" || type == "Urban") return "39569C";
-    else if (type == "4") return "2D708E";
-    else if (type == "5") return "238A8D";
-    else if (type == "6") return "20A387";
-    else if (type == "7") return "3CBB75";
-    else if (type == "8") return "95D840";
-    else if (type == "9") return "FDE725";
-    else if (type == "10") return "FFFF99";
-
-    else return "FFFFFF";
 }

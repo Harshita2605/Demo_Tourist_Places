@@ -1,12 +1,13 @@
+from glob import glob
 import pandas as pd
 import numpy as np
 import math
 import sys
 
-fout = "js/pop.js"
+fout = "js/num2.js"
 f = open(fout, "w")
 
-def write(fin, distt, fac):
+def write(fin, fac):
     df = pd.read_csv(fin)
     arr = df.T.to_numpy()
     prev = ""
@@ -17,7 +18,7 @@ def write(fin, distt, fac):
         for c in range (0, np.size(arr, 1)):
             x = math.floor(arr[r][c]/fac)
             if c == 0:
-                f.write("\nvar " + distt + "_" + str(df.columns[r]) + " = [")
+                f.write("\nvar "  + str(df.columns[r]) + " = [")
                 t = 0
             elif c == 1:
                 f.write("\"" + str(x) + "\"")
@@ -33,15 +34,14 @@ def write(fin, distt, fac):
                     prev = str(x)
                     t = 1
         f.write(", " + str(t) + "]")
-    #f.write("\n")
-    #f.write(str(count) + "\n")
+    f.write("\n" + str(count))
 
-write("cities/ban/pop.csv", "Ban", 9000)
-write("cities/che/pop.csv", "Che", 7000)
-write("cities/del/pop.csv", "Del", 7000)
-write("cities/gur/pop.csv", "Gur", 6000)
-write("cities/hyd/pop.csv", "Hyd", 5000)
-write("cities/kol/pop.csv", "Kol", 5000)
-write("cities/mum/pop.csv", "Mum", 10000)
+
+for file in sorted(glob('data/conn/num/*.csv')): write(file, 1)
+for file in sorted(glob('data/edu/num/*.csv')): write(file, 50)
+for file in sorted(glob('data/govt/num/*.csv')): write(file, 1)
+for file in sorted(glob('data/health/num/*.csv')): write(file, 50)
+for file in sorted(glob('data/utility/num/*.csv')): write(file, 5)
+
 
 f.close()

@@ -1,6 +1,7 @@
 let map;
 let infoWindow;
 let dataArr;
+var gtype;
 var colArr = [];
 
 var map1, map2, map3, map4, map5, map6, map7;
@@ -8,12 +9,12 @@ var map8, map9, map10, map11, map12, map13, map14;
 var map15, map16, map17, map18, map19, map20, map21;
 
 var basemap = { lat: 20.59, lng: 78.96 }
-var bangalore = { lat: 12.97, lng: 77.59 }
-var chennai = { lat: 13.08, lng: 80.27 }
-var delhi = { lat: 28.61, lng: 77.21 }
-var gurgaon = { lat: 28.46, lng: 77.03 }
-var hyderabad = { lat: 17.38, lng: 78.49 }
-var kolkata = { lat: 22.57, lng: 88.36 }
+var bangalore = { lat: 12.93, lng: 77.57 }
+var chennai = { lat: 13.04, lng: 80.24 }
+var delhi = { lat: 28.64, lng: 77.08 }
+var gurgaon = { lat: 28.37, lng: 76.93 }
+var hyderabad = { lat: 17.38, lng: 78.46 }
+var kolkata = { lat: 22.55, lng: 88.34 }
 var mumbai = { lat: 19.08, lng: 72.88 }
 
 var op = { zoom: 5, center: basemap };
@@ -95,7 +96,7 @@ function nmap(flag) {
 
 function ban(indic, flag, mapx) {
     mapx.setCenter(bangalore);
-    mapx.setZoom(9);
+    mapx.setZoom(9.25);
 
     if (indic == 1) {
         switch (flag) {
@@ -168,6 +169,7 @@ function ban(indic, flag, mapx) {
     }
 
     getColorArrays(dataArr, colArr);
+    gtype = Ban_Grid_type;
 
     let k = 0;
     for (let i = 0; i < 51; i++)
@@ -185,7 +187,7 @@ function ban(indic, flag, mapx) {
 
 function che(indic, flag, mapx) {
     mapx.setCenter(chennai);
-    mapx.setZoom(9);
+    mapx.setZoom(10.75);
 
     if (indic == 1) {
         switch (flag) {
@@ -258,6 +260,7 @@ function che(indic, flag, mapx) {
     }
 
     getColorArrays(dataArr, colArr);
+    gtype = Che_Grid_type;
 
     let k = 0;
     for (let i = 0; i < 15; i++)
@@ -275,7 +278,7 @@ function che(indic, flag, mapx) {
 
 function del(indic, flag, mapx) {
     mapx.setCenter(delhi);
-    mapx.setZoom(9);
+    mapx.setZoom(9.25);
 
     if (indic == 1) {
         switch (flag) {
@@ -348,6 +351,7 @@ function del(indic, flag, mapx) {
     }
 
     getColorArrays(dataArr, colArr);
+    gtype = Del_Grid_type;
 
     let k = 0;
     for (let i = 0; i < 51; i++)
@@ -365,7 +369,7 @@ function del(indic, flag, mapx) {
 
 function gur(indic, flag, mapx) {
     mapx.setCenter(gurgaon);
-    mapx.setZoom(9);
+    mapx.setZoom(9.25);
 
     if (indic == 1) {
         switch (flag) {
@@ -438,6 +442,7 @@ function gur(indic, flag, mapx) {
     }
 
     getColorArrays(dataArr, colArr);
+    gtype = Gur_Grid_type;
 
     let k = 0;
     for (let i = 0; i < 61; i++)
@@ -455,7 +460,7 @@ function gur(indic, flag, mapx) {
 
 function hyd(indic, flag, mapx) {
     mapx.setCenter(hyderabad);
-    mapx.setZoom(9);
+    mapx.setZoom(10.75);
 
     if (indic == 1) {
         switch (flag) {
@@ -528,6 +533,7 @@ function hyd(indic, flag, mapx) {
     }
 
     getColorArrays(dataArr, colArr);
+    gtype = Hyd_Grid_type;
 
     let k = 0;
     for (let i = 0; i < 16; i++)
@@ -545,7 +551,7 @@ function hyd(indic, flag, mapx) {
 
 function kol(indic, flag, mapx) {
     mapx.setCenter(kolkata);
-    mapx.setZoom(9);
+    mapx.setZoom(10.75);
 
     if (indic == 1) {
         switch (flag) {
@@ -618,6 +624,7 @@ function kol(indic, flag, mapx) {
     }
 
     getColorArrays(dataArr, colArr);
+    gtype = Kol_Grid_type;
 
     let k = 0;
     for (let i = 0; i < 14; i++)
@@ -635,7 +642,7 @@ function kol(indic, flag, mapx) {
 
 function mum(indic, flag, mapx) {
     mapx.setCenter(mumbai);
-    mapx.setZoom(9);
+    mapx.setZoom(9.75);
 
     if (indic == 1) {
         switch (flag) {
@@ -708,6 +715,7 @@ function mum(indic, flag, mapx) {
     }
 
     getColorArrays(dataArr, colArr);
+    gtype = Mum_Grid_type;
 
     let k = 0;
     for (let i = 0; i < 22; i++)
