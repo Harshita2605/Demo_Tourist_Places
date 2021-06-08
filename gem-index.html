@@ -288,11 +288,88 @@
                 </div>
             </div>
 
-            <div class="col-6 section-2-col">G</div>
+            <div class="col-6 section-2-col">
+                <p class="section-heading-ques">
+                    Overall in the city, what are the nearest amenity distances?
+                </p>
+                <div class="section-method">
+                    a) Method:: For urban and periurban grids, obtained euclidean distance from grid centre to nearest amenity site of a category, then reported 80 percentile of that distribution
+                    <br /><br />b) Method:: For urban and periurban grids, obtained euclidean distance from grid centre to nearest amenity site of a category, then plotted box plots for these distributions showing 25 percentile, 75 percentile, mean (green
+                    triangle in plot) and median (orange horizontal line in box plot) values for the distributions
+                </div>
+                <div class="section-inferences">
+                    Inferences:
+                    <ul>
+                        <li>
+                            Delhi, Gurgaon seems to have worst accessibility of amenities
+                        </li>
+                        <li>
+                            Amenities are most accessible in Chennai
+                        </li>
+                        <li>
+                            Connectivity is worse than other amenities in all the cities
+                        </li>
+                        <li>
+                            All amenities except connectivity is within 500 metres
+                        </li>
+                    </ul>
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col"><img class="section-3-img growable" src="images/n/Urban Periurban nearest dist.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/n/Box_conn.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/n/Box_edu.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/n/Box_govt.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/n/Box_health.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/n/Box_utility.png" /></div>
+                </div>
+            </div>
 
-            <div class="col-6 section-2-col">I</div>
+            <div class="col-6 section-2-col">
+                <p class="section-heading-ques">
+                    Which cities have the worst parts that are far away from essential amenities?
+                </p>
+                <div class="section-method">
+                    Method:: For urban and periurban grids, obtained euclidean distance from grid centre to nearest amenity site ofa category, plotted box plot of that distribution and identified number of outlier grids from box plot, then found out what percentage of total
+                    urban and periurban grids these outlier grids form
+                </div>
+                <div class="section-inferences">
+                    Inferences:
+                    <ul>
+                        <li>
+                            Delhi has the highest percentage of outlier grids, implying the nearest amenity distance distribution has high variation, i.e. amenities in some grids are very near and in someare very far
+                        </li>
+                        <li>
+                            Hyderabad has the least percentage of outlier grids, implying the nearest amenity distance distribution has low variation, i.e. amenities in most grids lie within a small range
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <img class="section-image" src="images/n/outlier urban periurban nearesr dist.png" />
+                </div>
+            </div>
 
-            <div class="col-6 section-2-col">J</div>
+            <div class="col-6 section-2-col">
+                <p class="section-heading-ques">
+                    What are these outliers and where do they lie in different parts of the city?
+                </p>
+                <div class="section-method">
+                    Method:: For urbanised (urban and periurban) grids, obtained euclidean distance from grid centre to nearest amenity site of a category, plotted box plot of that distribution and identified outlier grids from box plot,then located them on google maps
+                </div>
+                <div class="section-inferences">
+                    Inferences:
+                    <ul>
+                        <li>
+                            Most of the outliers lie on district boundary
+                        </li>
+                        <li>
+                            Most of the identified areas are non residential, they are industrial areas, or wildlife parks etc.
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <img class="section-image" src="images/n/outliers table.png" />
+                </div>
+            </div>
 
             <div style="margin-top: 40px">
                 <h1 style="text-align: center">Distance to Nearest Amenity - Maps</h1>
@@ -380,6 +457,118 @@
 
     <div id="num-amenity" class="category-sections">
         <h1 class="section-header">Number of Amenities</h1>
+        <div class="row section-2-row">
+            <div class="col-6 section-2-col">
+                <p class="section-heading-ques">
+                    How many amenities are within accessible distance from the different parts of the city?
+                </p>
+                <div class="section-method">
+                    Method:: For grids of class Cx, obtained number of amenity sites within standard range, then reported 20 percentile of that distribution, implying 80 percentile grids have more amenity sites than this reported value within standard range
+                </div>
+
+                <div class="row" style="margin-top: 20px">
+                    <div class="col"><img class="section-3-img growable" src="images/num/ban.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/che.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/del.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/gur.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/hyd.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/kol.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/mum.png" /></div>
+                </div>
+            </div>
+
+            <div class="col-6 section-2-col">
+                <p class="section-heading-ques">
+                    Overall as a city, what are the number of amenities within accessible distance?
+                </p>
+                <div class="section-method">
+                    a) Method:: For urban and periurban grids, obtained number of amenity sites within standard range (acc to URDPFI guidelines), then reported 20 percentile of that distribution, implying 80 percentile grids have more amenity sites than this reported value
+                    <br /><br />b) Method:: For urban and periurban grids, obtained number of amenity sites within standard range (acc to URDPFI guidelines), then plotted box plots for these distributions showing 25 percentile, 75 percentile, mean (green
+                    triangle in plot) and median (orange horizontal line in box plot) values for the distributions
+                </div>
+                <div class="section-inferences">
+                    Inferences:
+                    <ul>
+                        <li>
+                            Delhi seems to have worst availability of amenities
+                        </li>
+                        <li>
+                            Availability of amenities is best in Mumbai
+                        </li>
+                        <li>
+                            Connectivity is worse than other amenities in all the cities
+                        </li>
+                    </ul>
+                </div>
+                <div class="row" style="margin-top: 20px">
+                    <div class="col"><img class="section-3-img growable" src="images/num/Urban PeriUrban Num Amenities.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/Box_conn.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/Box_edu.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/Box_govt.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/Box_health.png" /></div>
+                    <div class="col"><img class="section-3-img growable" src="images/num/Box_utility.png" /></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px">
+                <h1 style="text-align: center">Number Of Amenities - Maps</h1>
+                <br />
+                <div class="row">
+                    <div class="col section-2-maps">
+                        <div id="map22" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Bangalore</div>
+                    </div>
+                    <div class="col section-2-maps">
+                        <div id="map23" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Chennai</div>
+                    </div>
+                    <div class="col map-radio-btns">
+                        <div class="radio-options">
+                            <input class="form-check-input" type="radio" name="section-four-radio" id="section-4-radio" onclick=initMap4(2) />
+                            <label class="form-check-label" for="section-4-radio">Connectivity</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-four-radio" id="section-4-radio" onclick=initMap4(4) />
+                            <label class="form-check-label" for="section-4-radio">Education</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-four-radio" id="section-4-radio" onclick=initMap4(6) />
+                            <label class="form-check-label" for="section-4-radio">Government Facilities</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-four-radio" id="section-4-radio" onclick=initMap4(8) />
+                            <label class="form-check-label" for="section-4-radio">Health</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-four-radio" id="section-4-radio" onclick=initMap4(10) />
+                            <label class="form-check-label" for="section-4-radio">Utilities</label>
+                        </div>
+                    </div>
+                    <div class="col section-2-maps">
+                        <div id="map24" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Delhi</div>
+                    </div>
+                    <br />
+                    <div class="col section-2-maps">
+                        <div id="map25" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Gurgaon</div>
+                    </div>
+
+                    <div class="col section-2-maps">
+                        <div id="map26" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Hyderabad</div>
+                    </div>
+                    <div class="col section-2-maps">
+                        <div id="map27" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Kolkata</div>
+                    </div>
+                    <div class="col section-2-maps">
+                        <div id="map28" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Mumbai</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="load-amenity" class="category-sections">
@@ -393,6 +582,7 @@
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap1"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap2"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap3"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap4"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>

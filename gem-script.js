@@ -7,6 +7,7 @@ var colArr = [];
 var map1, map2, map3, map4, map5, map6, map7;
 var map8, map9, map10, map11, map12, map13, map14;
 var map15, map16, map17, map18, map19, map20, map21;
+var map22, map23, map24, map25, map26, map27, map28;
 
 var basemap = { lat: 20.59, lng: 78.96 }
 var bangalore = { lat: 12.93, lng: 77.57 }
@@ -23,6 +24,7 @@ function initMap() {
     initMap1(1);
     initMap2(1);
     initMap3(1);
+    initMap4(1);
 }
 
 function initMap1(flag) {
@@ -64,6 +66,19 @@ function initMap3(flag) {
     nmap(flag);
 }
 
+function initMap4(flag) {
+    //NUM AMENITY
+    map22 = new google.maps.Map(document.getElementById("map22"), op);
+    map23 = new google.maps.Map(document.getElementById("map23"), op);
+    map24 = new google.maps.Map(document.getElementById("map24"), op);
+    map25 = new google.maps.Map(document.getElementById("map25"), op);
+    map26 = new google.maps.Map(document.getElementById("map26"), op);
+    map27 = new google.maps.Map(document.getElementById("map27"), op);
+    map28 = new google.maps.Map(document.getElementById("map28"), op);
+
+    nummap(flag);
+}
+
 function catmap(flag) {
     ban(1, flag, map1);
     che(1, flag, map2);
@@ -92,6 +107,16 @@ function nmap(flag) {
     hyd(3, flag, map19);
     kol(3, flag, map20);
     mum(3, flag, map21);
+}
+
+function nummap(flag) {
+    ban(3, flag, map22);
+    che(3, flag, map23);
+    del(3, flag, map24);
+    gur(3, flag, map25);
+    hyd(3, flag, map26);
+    kol(3, flag, map27);
+    mum(3, flag, map28);
 }
 
 function ban(indic, flag, mapx) {

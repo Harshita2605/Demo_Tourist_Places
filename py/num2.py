@@ -36,12 +36,10 @@ def write(fin, fac):
         f.write(", " + str(t) + "]")
     f.write("\n" + str(count))
 
-
 for file in sorted(glob('data/conn/num/*.csv')): write(file, 1)
-for file in sorted(glob('data/edu/num/*.csv')): write(file, 50)
+for file in sorted(glob('data/edu/num/*.csv')): write(file, 1)
 for file in sorted(glob('data/govt/num/*.csv')): write(file, 1)
-for file in sorted(glob('data/health/num/*.csv')): write(file, 50)
-for file in sorted(glob('data/utility/num/*.csv')): write(file, 5)
-
+for file in sorted(glob('data/health/num/*.csv')): write(file, 1)
+for file in sorted(glob('data/utility/num/*.csv')): write(file, 1)
 
 f.close()

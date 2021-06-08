@@ -61,7 +61,7 @@ function getColorArrays(arr, arrc) {
 }
 
 function getOpacity(gridNumber) {
-    document.getElementById("demo").innerHTML = "hello";
+    //document.getElementById("demo").innerHTML = "hello";
     var index = 0;
     for (var x = 1; x < gtype.length; x += 2)
         if (gridNumber >= index + gtype[x]) index += gtype[x];
