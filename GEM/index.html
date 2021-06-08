@@ -195,10 +195,290 @@
         </div>
       </div>
     </div>
-    <div id="population" class="category-sections">Population</div>
-    <div id="dist-amenity" class="category-sections">
-      Distance to nearest amenity
+
+    <div id="population" class="category-sections">
+      <h1 class="section-header">Population</h1>
+      <div class="row section-2-row">
+        <div class="col section-2-col">
+          <p class="section-heading-ques">How Urbanised are these cities?</p>
+          <div class="section-method">
+            Method : (Population in urban and peri urban grids / Population
+            within District Boundary (in urban, periurban and rural grids))*100
+          </div>
+          <div class="section-inferences">
+            Inferences:
+            <ul>
+              <li>
+                Chennai has the highest percentage of its population living in
+                urban and periurban grids Bangalore has the least
+              </li>
+              <li>
+                All cities except Bangalore have more than 50 % of their
+                population living in urban and periurban grids
+              </li>
+              <li>
+                Except for Bangalore and Gurgaon, all other districts have
+                approximately 3/4th of their population living in urban and
+                periurban grids.
+              </li>
+            </ul>
+          </div>
+          <div>
+            <img
+              class="section-image"
+              src="./images/Population_Images/pop_density.png"
+            />
+          </div>
+        </div>
+        <div class="col section-2-col">Col1</div>
+        <div class="col section-2-col">Col1</div>
+        <div class="row" style="margin-top: 40px">
+          <div class="row" style="justify-content: center">
+            <div class="col-4">
+              <div class="section-heading-ques">
+                Which Parts of Cities are Most Densely Populated?
+              </div>
+              <div class="section-method">
+                Population in Cx (C1,C2,C3,C4,C5) grids / number of Cx grids for
+                a district
+              </div>
+              <div class="section-inferences">
+                Inferences:
+                <ul>
+                  <li>
+                    Population Density in Bangalore, Chennai, Delhi, Hyderabad
+                    Kolkata monotonically increases as we move from C1 to C4 as
+                    expected but decreases in C5 in Bangalore and Chennai, this
+                    may be due to underreporting at the time of census as C5
+                    grids contain areas like slums and jhuggis predominantly
+                    occupied by the migrant population.
+                  </li>
+                  <li>
+                    Almost Uniform Population Density is observed among C1-C5
+                    grids in Chennai, Kolkata Mumbai, implying that population
+                    is distributed uniformly, thus every grid class holds equal
+                    importance in these districts
+                  </li>
+                </ul>
+              </div>
+              <p>Hover over any image to enlarge</p>
+            </div>
+            <div class="col">
+              <img
+                class="section-2-image"
+                src="./images/Population_Images/pop_density.png"
+              />
+              <img
+                class="section-2-image"
+                src="./images/Population_Images/pop_density.png"
+              />
+              <img
+                class="section-2-image"
+                src="./images/Population_Images/pop_density.png"
+              />
+              <img
+                class="section-2-image"
+                src="./images/Population_Images/pop_density.png"
+              />
+              <img
+                class="section-2-image"
+                src="./images/Population_Images/pop_density.png"
+              />
+              <img
+                class="section-2-image"
+                src="./images/Population_Images/pop_density.png"
+              />
+              <img
+                class="section-2-image"
+                src="./images/Population_Images/pop_density.png"
+              />
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 40px">
+          <h1 style="text-align: center">Population - Maps</h1>
+          <br />
+          <div class="row" style="display: flex">
+            <div class="col section-2-maps">
+              <div
+                id="section-3-map1"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <div class="col section-2-maps">
+              <div
+                id="section-3-map2"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <div class="col section-2-maps">
+              <div
+                id="section-3-map3"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <div class="col section-2-maps">
+              <div
+                id="section-3-map4"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <br />
+            <div class="col section-2-maps">
+              <div
+                id="section-3-map5"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <div class="col section-2-maps">
+              <div
+                id="section-3-map6"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <div class="col section-2-maps">
+              <div
+                id="section-3-map7"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div id="dist-amenity" class="category-sections">
+      <h1 class="section-header">Distance to nearest amenity</h1>
+      <div class="row section-2-row">
+        <div class="col-6 section-2-col">
+          <p class="section-heading-ques">
+            What are the nearest amenity distances for different parts of the
+            city?
+          </p>
+          <div class="section-method">
+            Method:: For grids of class Cx, obtained euclidean distance from
+            grid centre to nearest amenity site of a category, then reported 80
+            percentile of that distribution
+          </div>
+
+          <div class="row" style="margin-top: 20px">
+            <div class="col">
+              <img
+                class="section-3-img"
+                src="./images/Distance_To_Nearest_Amenities_Images/Bangalore_C1-C5_nearest_dis.png"
+              />
+            </div>
+            <div class="col">
+              <img
+                class="section-3-img"
+                src="./images/Distance_To_Nearest_Amenities_Images/Bangalore_C1-C5_nearest_dis.png"
+              />
+            </div>
+            <div class="col">
+              <img
+                class="section-3-img"
+                src="./images/Distance_To_Nearest_Amenities_Images/Bangalore_C1-C5_nearest_dis.png"
+              />
+            </div>
+            <div class="col">
+              <img
+                class="section-3-img"
+                src="./images/Distance_To_Nearest_Amenities_Images/Bangalore_C1-C5_nearest_dis.png"
+              />
+            </div>
+            <div class="col">
+              <img
+                class="section-3-img"
+                src="./images/Distance_To_Nearest_Amenities_Images/Bangalore_C1-C5_nearest_dis.png"
+              />
+            </div>
+            <div class="col">
+              <img
+                class="section-3-img"
+                src="./images/Distance_To_Nearest_Amenities_Images/Bangalore_C1-C5_nearest_dis.png"
+              />
+            </div>
+            <div class="col">
+              <img
+                class="section-3-img"
+                src="./images/Distance_To_Nearest_Amenities_Images/Bangalore_C1-C5_nearest_dis.png"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 section-2-col">G</div>
+
+        <div class="col-6 section-2-col">I</div>
+
+        <div class="col-6 section-2-col">J</div>
+
+        <div style="margin-top: 40px">
+          <h1 style="text-align: center">Distance to Nearest Amenity - Maps</h1>
+          <br />
+          <div class="row" style="display: flex">
+            <div class="col section-2-maps">
+              <div
+                id="section-2-map1"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <div class="col section-2-maps">
+              <div
+                id="section-2-map2"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <div class="col section-2-maps">
+              <div
+                id="section-2-map3"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <div class="col section-2-maps">
+              <div
+                id="section-2-map4"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <br />
+            <div class="col section-2-maps">
+              <div
+                id="section-2-map5"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <div class="col section-2-maps">
+              <div
+                id="section-2-map6"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+            <div class="col section-2-maps">
+              <div
+                id="section-2-map7"
+                style="width: 350px; height: 350px"
+              ></div>
+              <div class="small-maps-label">Delhi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div id="num-amenity" class="category-sections">Number of Amenities</div>
     <div id="load-amenity" class="category-sections">
       Popu. load on nearest amenity
