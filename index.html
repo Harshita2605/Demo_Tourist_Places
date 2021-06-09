@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
-      crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
 
     <script src="js/all.js"></script>
     <script src="js/n2.js"></script>
@@ -21,87 +17,53 @@
     <link href="gem-style.css" rel="stylesheet" />
 
     <title>Urbanization</title>
-  </head>
+</head>
 
-  <body onload="initMap()">
+<body onload="initMap()">
     <div id="demo"></div>
     <div class="main-intro">
-      <h1>Urbanization</h1>
-      <h5>
-        For any district the distribution of various kinds of amenities like
-        school, hospital etc. and population load on these amenities decide
-        their living standards. While, measures like total number of these
-        amenity sites in a district are available through datasets like census
-        of India, there isn’t any information how they are distributed in
-        various regions of the district (especially around urban centres). Our
-        contribution lies in using Google Places & WorldPop data to develop
-        indicators to quantitatively compare living standards of different
-        districts or different regions of a district. Each district’s bounding
-        box is divided into grids of 0.01◦ latitudinal and 0.01◦ longitudinal
-        widths of approximately 1 sq km area. We then identified urbanised grids
-        because amount of built-up pixels in a districts’s satellite image is an
-        indicator of human development activities (like the construction of
-        residential buildings, commercial structures, roads, etc.) in the
-        district, then we used the lat-lon values of various amenity sites from
-        Google Places to develop various accessibility and availability
-        indicators. We then use WorldPop data which gives population at 100m x
-        100m granularity to analyse the population distribution in these
-        urbanised grids and also to identify the load on amenity sites. This
-        analysis has been done for 7 districts Bangalore, Chennai, Delhi,
-        Gurgaon, Hyderabad, Kolkata and Mumbai.
-      </h5>
-      <div class="main-links" id="navbar">
-        <h4 class="main-link-item">
-          <a href="#urban-grids">Categorizing urbanized grids</a>
-        </h4>
-        <h4 class="main-link-item">
-          <a href="#population">Population Distribution in Districts</a>
-        </h4>
-        <h4 class="main-link-item">
-          <a href="#dist-amenity">Accessibility of Amenities</a>
-        </h4>
-        <h4 class="main-link-item">
-          <a href="#num-amenity">Availability of Amenities</a>
-        </h4>
-        <h4 class="main-link-item">
-          <a href="#load-amenity">Population load on Amenities</a>
-        </h4>
-      </div>
+        <h1>Urbanization</h1>
+        <h5>
+            For any district the distribution of various kinds of amenities like school, hospital etc. and population load on these amenities decide their living standards. While, measures like total number of these amenity sites in a district are available through
+            datasets like census of India, there isn’t any information how they are distributed in various regions of the district (especially around urban centres). Our contribution lies in using Google Places & WorldPop data to develop indicators to
+            quantitatively compare living standards of different districts or different regions of a district. Each district’s bounding box is divided into grids of 0.01◦ latitudinal and 0.01◦ longitudinal widths of approximately 1 sq km area. We then
+            identified urbanised grids because amount of built-up pixels in a districts’s satellite image is an indicator of human development activities (like the construction of residential buildings, commercial structures, roads, etc.) in the district,
+            then we used the lat-lon values of various amenity sites from Google Places to develop various accessibility and availability indicators. We then use WorldPop data which gives population at 100m x 100m granularity to analyse the population
+            distribution in these urbanised grids and also to identify the load on amenity sites. This analysis has been done for 7 districts Bangalore, Chennai, Delhi, Gurgaon, Hyderabad, Kolkata and Mumbai.
+        </h5>
+        <div class="main-links" id="navbar">
+            <h4 class="main-link-item">
+                <a href="#urban-grids">Categorising Urban Areas</a>
+            </h4>
+            <h4 class="main-link-item">
+                <a href="#population">Population Distribution in Districts</a>
+            </h4>
+            <h4 class="main-link-item">
+                <a href="#dist-amenity">Accessibility of Amenities</a>
+            </h4>
+            <h4 class="main-link-item">
+                <a href="#num-amenity">Availability of Amenities</a>
+            </h4>
+            <h4 class="main-link-item">
+                <a href="#load-amenity">Population load on Amenities</a>
+            </h4>
+        </div>
     </div>
 
     <div class="content">
-      <div id="urban-grids" class="category-sections">
-        <h1 class="section-header">Categorizing urbanized grids</h1>
-        <div class="row section-container">
-          <div class="col section-description">
-            Each district’s bounding box is divided into grids of 0.01
-            latitudinal and 0.01 longitudinal widths. Each grid has area roughly
-            1 Km square, which is one-third of the average size of a village in
-            India. Sentinel-2 images of a district is passed through a pipeline
-            containing land-use classifier to finally produce 30m resolution
-            pixels classified as urban, peri-urban and rural. A grid is selected
-            for further analysis of its road network only if more than 50% of
-            its pixels are either urban or peri-urban because amount of built-up
-            pixels in a districts’s satellite image is an indicator of human
-            development activities (like the construction of residential
-            buildings, commercial structures, roads, etc.) in the district. The
-            road network data is used to calculate indicators like number of 3
-            ways, number of 4 ways, road length, walkability ratio etc for each
-            urbanised grid. These urbanised grids are then classified into 5
-            classes- • Class I: Sparse settlements with less road
-            infrastructure, which seem to include non-residential areas like
-            industrial zones and airports, or upcoming residential areas. •
-            Class II: Sparse settlements with sufficient road infras- tructure,
-            which also seem to be upcoming residential areas. • Class III:
-            Moderately dense settlements with proportion- ately sufficient road
-            infrastructure, which seem to be well developed residential areas. •
-            Class IV: Dense settlements with a proportionately suf- ficient road
-            infrastructure, which too seem to be well developed residential
-            areas but more formally planned than Class III areas. • Class V:
-            Very dense settlements with inadequate road infrastructure, which
-            seem to be slum resettlement areas. For more details visit -
-            <a href="https://www.cse.iitd.ac.in/~aseth/urbanization.pdf"
-              >https://www.cse.iitd.ac.in/~aseth/urbanization.pdf</a
+        <div id="urban-grids" class="category-sections">
+            <h1 class="section-header">Categorising Urban Areas</h1>
+            <div class="row section-container">
+                <div class="col section-description">
+                    Each district’s bounding box is divided into grids of 0.01 latitudinal and 0.01 longitudinal widths. Each grid has area roughly 1 Km square, which is one-third of the average size of a village in India. Sentinel-2 images of a district is passed through
+                    a pipeline containing land-use classifier to finally produce 30m resolution pixels classified as urban, peri-urban and rural. A grid is selected for further analysis of its road network only if more than 50% of its pixels are either
+                    urban or peri-urban because amount of built-up pixels in a districts’s satellite image is an indicator of human development activities (like the construction of residential buildings, commercial structures, roads, etc.) in the district.
+                    The road network data is used to calculate indicators like number of 3 ways, number of 4 ways, road length, walkability ratio etc for each urbanised grid. These urbanised grids are then classified into 5 classes- • Class I: Sparse
+                    settlements with less road infrastructure, which seem to include non-residential areas like industrial zones and airports, or upcoming residential areas. • Class II: Sparse settlements with sufficient road infras- tructure, which also
+                    seem to be upcoming residential areas. • Class III: Moderately dense settlements with proportion- ately sufficient road infrastructure, which seem to be well developed residential areas. • Class IV: Dense settlements with a proportionately
+                    suf- ficient road infrastructure, which too seem to be well developed residential areas but more formally planned than Class III areas. • Class V: Very dense settlements with inadequate road infrastructure, which seem to be slum resettlement
+                    areas. For more details visit -
+                    <a href="https://www.cse.iitd.ac.in/~aseth/urbanization.pdf">https://www.cse.iitd.ac.in/~aseth/urbanization.pdf</a
             >
           </div>
           <div class="col">
@@ -372,7 +334,7 @@
             </div>
           </div>
           <div style="margin-top: 40px">
-            <h1 style="text-align: center">Population - Maps</h1>
+            <h2 style="text-align: center">Population Distribution in Districts - Maps</h2>
             <br />
             <div class="row" style="display: flex">
               <div class="col section-2-maps">
@@ -579,9 +541,9 @@
           </div>
 
           <div style="margin-top: 40px">
-            <h1 style="text-align: center">
-              Distance to Nearest Amenity - Maps
-            </h1>
+            <h2 style="text-align: center">
+              Accessibility of Amenities - Maps
+            </h2>
             <br />
             <div class="row">
               <div class="col section-2-maps">
@@ -593,27 +555,6 @@
                 <div class="small-maps-label">Chennai</div>
               </div>
               <div class="col map-radio-btns">
-                <!-- <div class="radio-options">
-                            <input class="form-check-input" type="radio" name="section-one-radio" id="section-1-radio" onclick=initMap(3,1) />
-                            <label class="form-check-label" for="section-1-radio">Connectivity</label>
-                        </div>
-
-                        <div>
-                            <input class="form-check-input" type="radio" name="section-one-radio" id="section-1-radio" onclick=initMap(3,3) />
-                            <label class="form-check-label" for="section-1-radio">Education</label>
-                        </div>
-                        <div>
-                            <input class="form-check-input" type="radio" name="section-one-radio" id="section-1-radio" onclick=initMap(3,5) />
-                            <label class="form-check-label" for="section-1-radio">Government Facilities</label>
-                        </div>
-                        <div>
-                            <input class="form-check-input" type="radio" name="section-one-radio" id="section-1-radio" onclick=initMap(3,7) />
-                            <label class="form-check-label" for="section-1-radio">Health</label>
-                        </div>
-                        <div>
-                            <input class="form-check-input" type="radio" name="section-one-radio" id="section-1-radio" onclick=initMap(3,9) />
-                            <label class="form-check-label" for="section-1-radio">Utilities</label>
-                        </div> -->
                 <div class="radio-options">
                   <input
                     class="form-check-input"
@@ -812,7 +753,7 @@
           </div>
 
           <div style="margin-top: 40px">
-            <h1 style="text-align: center">Number Of Amenities - Maps</h1>
+            <h2 style="text-align: center">Availability of Amenities - Maps</h2>
             <br />
             <div class="row">
               <div class="col section-2-maps">
@@ -1059,7 +1000,7 @@
           </div>
 
           <div style="margin-top: 40px">
-            <h1 style="text-align: center">Popu. Load - Maps</h1>
+            <h2 style="text-align: center">Population load on Amenities - Maps</h2>
             <br />
             <div class="row">
               <div class="col section-2-maps">
