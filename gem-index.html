@@ -573,16 +573,150 @@
 
     <div id="load-amenity" class="category-sections">
         <h1 class="section-header">Popu. load on nearest amenity</h1>
+        <div class="row section-2-row">
+            <div class="row" style="margin-top: 40px">
+                <div class="row" style="justify-content: center">
+                    <div class="col-4">
+                        <div class="section-heading-ques">
+                            Overall in a city, how much population do the amenities serve?
+                        </div>
+                        <div class="section-method">
+                            Method:: For amenities in city obtained population of their voronoi catchment area, then for amenities in urbanised (urban and periurban) grids, reported 80 percentile of that distribution
+                        </div>
+                        <div class="section-inferences">
+                            Inferences:
+                            <ul>
+                                <li>
+                                    Cities having less load like Gurgaon imply that these cities have sufficient amenity infrastructure as compared to other cities
+                                </li>
+                                <li>
+                                    Mumbai has high population load on amenities and it also had high population density in combined grids, this implies that the amenity infrastructure is far behind the demand thus are strained
+                                </li>
+                                <li>
+                                    Cities like Bangalore which didn’t have that high population density nor that much percentage of population living in combined grids and still having highest load on amenities imply the amenity infrastructure is worse here
+                                </li>
+                                <li>
+                                    Education and Health were least strained amenities overall which is good since these are basic amenities
+                                </li>
+                                <li>
+                                    Connectivity is highly constrained which may be due to incomplete data on google places
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="section-heading-ques">
+                            How much population do the nearest amenities serve in different parts of the cities?
+                        </div>
+                        <div class="section-method">
+                            Method:: For each Cz grid obtained population innearest amenity (within std range) catchment area, reported80 percentile of that distribution
+                        </div>
+                        <div class="section-inferences">
+                            Inferences:
+                            <ul>
+                                <li>
+                                    All districts except Delhi (least load in C2 grids) have least overall population load in grids C4 (Chennai, Gurgaon, Kolkata, Mumbai) or C5 (Bangalore, Hyderabad). Thus residential grids bear least load in all districts except Delhi
+                                </li>
+                                <li>
+                                    All districts except Delhi (max load in C5 overall) and Hyderabad (max load in C4 overall), bear max load overall in grids C1 (Gurgaon, Kolkata, Mumbai), C2 (Chennai) or C3 (Bangalore). Thus non residential grids bear maximum load in all districts except
+                                    Delhi and Hyderabad
+                                </li>
+                            </ul>
+                        </div>
+                        <p>Hover over any image to enlarge</p>
+                    </div>
+                    <div class="col">
+                        <br /> <br />
+                        <img class="section-2-image growable" src="images/pop_load/Voronoi pop load.png" />
+                        <img class="section-2-image growable" src="images/pop_load/Connectivity voronoi pop load.png" />
+                        <img class="section-2-image growable" src="images/pop_load/ban1.png" />
+                        <img class="section-2-image growable" src="images/pop_load/ban2.png" />
+                        <img class="section-2-image growable" src="images/pop_load/che1.png" />
+                        <img class="section-2-image growable" src="images/pop_load/che2.png" />
+                        <img class="section-2-image growable" src="images/pop_load/del1.png" />
+                        <img class="section-2-image growable" src="images/pop_load/del2.png" />
+                        <img class="section-2-image growable" src="images/pop_load/gur1.png" />
+                        <img class="section-2-image growable" src="images/pop_load/gur2.png" />
+                        <img class="section-2-image growable" src="images/pop_load/hyd1.png" />
+                        <img class="section-2-image growable" src="images/pop_load/hyd2.png" />
+                        <img class="section-2-image growable" src="images/pop_load/kol1.png" />
+                        <img class="section-2-image growable" src="images/pop_load/kol2.png" />
+                        <img class="section-2-image growable" src="images/pop_load/mum1.png" />
+                        <img class="section-2-image growable" src="images/pop_load/mum2.png" />
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px">
+                <h1 style="text-align: center">Popu. Load - Maps</h1>
+                <br />
+                <div class="row">
+                    <div class="col section-2-maps">
+                        <div id="map29" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Bangalore</div>
+                    </div>
+                    <div class="col section-2-maps">
+                        <div id="map30" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Chennai</div>
+                    </div>
+                    <div class="col map-radio-btns">
+                        <div class="radio-options">
+                            <input class="form-check-input" type="radio" name="section-four-radio" id="section-4-radio" onclick=initMap4(2) />
+                            <label class="form-check-label" for="section-4-radio">Connectivity</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-four-radio" id="section-4-radio" onclick=initMap4(4) />
+                            <label class="form-check-label" for="section-4-radio">Education</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-four-radio" id="section-4-radio" onclick=initMap4(6) />
+                            <label class="form-check-label" for="section-4-radio">Government Facilities</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-four-radio" id="section-4-radio" onclick=initMap4(8) />
+                            <label class="form-check-label" for="section-4-radio">Health</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-four-radio" id="section-4-radio" onclick=initMap4(10) />
+                            <label class="form-check-label" for="section-4-radio">Utilities</label>
+                        </div>
+                    </div>
+                    <div class="col section-2-maps">
+                        <div id="map31" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Delhi</div>
+                    </div>
+                    <br />
+                    <div class="col section-2-maps">
+                        <div id="map32" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Gurgaon</div>
+                    </div>
+
+                    <div class="col section-2-maps">
+                        <div id="map33" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Hyderabad</div>
+                    </div>
+                    <div class="col section-2-maps">
+                        <div id="map34" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Kolkata</div>
+                    </div>
+                    <div class="col section-2-maps">
+                        <div id="map35" style="width: 350px; height: 350px"></div>
+                        <div class="small-maps-label">Mumbai</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <!-- Javascript -->
     <script src="gem-script.js"></script>
+    <script src="gem-cities.js"></script>
     <script src="gem-fun.js"></script>
 
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap1"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap2"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap3"></script>
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap4"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap5"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
