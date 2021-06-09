@@ -1,434 +1,1195 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-    <title> Map 1 </title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
 
-    <script src="data.js"></script> 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <style>
-        #map {
-            height: 675px;
-            width: 100%;
-        }
+    <script src="js/all.js"></script>
+    <script src="js/n2.js"></script>
+    <script src="js/num2.js"></script>
+    <script src="js/pop.js"></script>
 
-        .navbar {
-            overflow: hidden;
-            background-color: #333;
-        }
+    <link href="gem-style.css" rel="stylesheet" />
 
-        .navbar a {
-            float: left;
-            font-size: 16px;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
+    <title>Urbanization</title>
+  </head>
 
-        .subnav {
-            float: left;
-            overflow: hidden;
-        }
-
-        .subnav .subnavbtn {
-            font-size: 16px;
-            border: none;
-            outline: none;
-            color: white;
-            padding: 14px 16px;
-            background-color: inherit;
-            font-family: inherit;
-            margin: 0;
-        }
-
-        .navbar a:hover,
-        .subnav:hover .subnavbtn {
-            background-color: white;
-            color: #333;
-            font-weight: bold;
-        }
-
-        .subnav-content {
-            display: none;
-            position: absolute;
-            left: 100;
-            background-color: white;
-            width: 8%;
-            z-index: 1;
-        }
-
-        .subnav-content a {
-            float: center;
-            color: #333;
-            text-decoration: none;
-        }
-
-        .subnav-content a:hover {
-            background-color: white;
-            font-weight: bold;
-            color: black;
-        }
-
-        .subnav:hover .subnav-content {
-            display: block;
-        }
-    </style>
-
-</head>
-
-<body>
-
-    <div id="header">
-        <h1> Map 1 </h1>
+  <body onload="initMap()">
+    <div id="demo"></div>
+    <div class="main-intro">
+      <h1>Urbanization</h1>
+      <h5>
+        For any district the distribution of various kinds of amenities like
+        school, hospital etc. and population load on these amenities decide
+        their living standards. While, measures like total number of these
+        amenity sites in a district are available through datasets like census
+        of India, there isn’t any information how they are distributed in
+        various regions of the district (especially around urban centres). Our
+        contribution lies in using Google Places & WorldPop data to develop
+        indicators to quantitatively compare living standards of different
+        districts or different regions of a district. Each district’s bounding
+        box is divided into grids of 0.01◦ latitudinal and 0.01◦ longitudinal
+        widths of approximately 1 sq km area. We then identified urbanised grids
+        because amount of built-up pixels in a districts’s satellite image is an
+        indicator of human development activities (like the construction of
+        residential buildings, commercial structures, roads, etc.) in the
+        district, then we used the lat-lon values of various amenity sites from
+        Google Places to develop various accessibility and availability
+        indicators. We then use WorldPop data which gives population at 100m x
+        100m granularity to analyse the population distribution in these
+        urbanised grids and also to identify the load on amenity sites. This
+        analysis has been done for 7 districts Bangalore, Chennai, Delhi,
+        Gurgaon, Hyderabad, Kolkata and Mumbai.
+      </h5>
+      <div class="main-links" id="navbar">
+        <h4 class="main-link-item">
+          <a href="#urban-grids">Categorizing urbanized grids</a>
+        </h4>
+        <h4 class="main-link-item">
+          <a href="#population">Population Distribution in Districts</a>
+        </h4>
+        <h4 class="main-link-item">
+          <a href="#dist-amenity">Accessibility of Amenities</a>
+        </h4>
+        <h4 class="main-link-item">
+          <a href="#num-amenity">Availability of Amenities</a>
+        </h4>
+        <h4 class="main-link-item">
+          <a href="#load-amenity">Population load on Amenities</a>
+        </h4>
+      </div>
     </div>
-    <div class="navbar">
-        <div class="subnav" id="basemap">
-            <button class="subnavbtn"> Basemap <i class="fa fa-caret-down"></i></button>
-        </div>
-        <div class="subnav" id="bangalore">
-            <button class="subnavbtn"> Bangalore <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-                <a href="#" onclick=ban(0)> Show Grid </a>
-                <a href="#" onclick=ban(1)> Grid Type </a>
-                <a href="#" onclick=ban(2)> Class Label </a>
+
+    <div class="content">
+      <div id="urban-grids" class="category-sections">
+        <h1 class="section-header">Categorizing urbanized grids</h1>
+        <div class="row section-container">
+          <div class="col section-description">
+            Each district’s bounding box is divided into grids of 0.01
+            latitudinal and 0.01 longitudinal widths. Each grid has area roughly
+            1 Km square, which is one-third of the average size of a village in
+            India. Sentinel-2 images of a district is passed through a pipeline
+            containing land-use classifier to finally produce 30m resolution
+            pixels classified as urban, peri-urban and rural. A grid is selected
+            for further analysis of its road network only if more than 50% of
+            its pixels are either urban or peri-urban because amount of built-up
+            pixels in a districts’s satellite image is an indicator of human
+            development activities (like the construction of residential
+            buildings, commercial structures, roads, etc.) in the district. The
+            road network data is used to calculate indicators like number of 3
+            ways, number of 4 ways, road length, walkability ratio etc for each
+            urbanised grid. These urbanised grids are then classified into 5
+            classes- • Class I: Sparse settlements with less road
+            infrastructure, which seem to include non-residential areas like
+            industrial zones and airports, or upcoming residential areas. •
+            Class II: Sparse settlements with sufficient road infras- tructure,
+            which also seem to be upcoming residential areas. • Class III:
+            Moderately dense settlements with proportion- ately sufficient road
+            infrastructure, which seem to be well developed residential areas. •
+            Class IV: Dense settlements with a proportionately suf- ficient road
+            infrastructure, which too seem to be well developed residential
+            areas but more formally planned than Class III areas. • Class V:
+            Very dense settlements with inadequate road infrastructure, which
+            seem to be slum resettlement areas. For more details visit -
+            <a href="https://www.cse.iitd.ac.in/~aseth/urbanization.pdf"
+              >https://www.cse.iitd.ac.in/~aseth/urbanization.pdf</a
+            >
+          </div>
+          <div class="col">
+            <div class="section-large-map">
+              <div id="map1" style="width: 600px; height: 400px"></div>
+              <div class="map-radio-btns">
+                <div class="radio-options">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-one-radio"
+                    id="section-1-radio"
+                    onclick="initMap1(1)"
+                  />
+                  <label class="form-check-label" for="section-1-radio"
+                    >Grid Type</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-one-radio"
+                    id="section-1-radio"
+                    onclick="initMap1(2)"
+                  />
+                  <label class="form-check-label" for="section-1-radio"
+                    >Class Label</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-one-radio"
+                    id="section-1-radio"
+                    onclick="initMap1(3)"
+                  />
+                  <label class="form-check-label" for="section-1-radio"
+                    >Three Ways</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-one-radio"
+                    id="section-1-radio"
+                    onclick="initMap1(4)"
+                  />
+                  <label class="form-check-label" for="section-1-radio"
+                    >Four Ways</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-one-radio"
+                    id="section-1-radio"
+                    onclick="initMap1(8)"
+                  />
+                  <label class="form-check-label" for="section-1-radio"
+                    >Walkability Ratio</label
+                  >
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="subnav" id="chandigarh">
-            <button class="subnavbtn"> Chandigarh <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-                <a href="#" onclick=chd(0)> Show Grid </a>
-                <a href="#" onclick=chd(1)> Grid Type </a>
-                <a href="#" onclick=chd(2)> Class Label </a>
+        <div class="row section-container">
+          <div class="col">
+            <div class="section-small-maps">
+              <div id="map2" style="width: 250px; height: 250px"></div>
+              <div class="small-maps-label">Chennai</div>
             </div>
-        </div>
-        <div class="subnav" id="chennai">
-            <button class="subnavbtn"> Chennai <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-                <a href="#" onclick=chn(0)> Show Grid </a>
-                <a href="#" onclick=chn(1)> Grid Type </a>
-                <a href="#" onclick=chn(2)> Class Label </a>
+          </div>
+          <div class="col">
+            <div class="section-small-maps">
+              <div id="map3" style="width: 250px; height: 250px"></div>
+              <div class="small-maps-label">Delhi</div>
             </div>
-        </div>
-        <div class="subnav" id="delhi">
-            <button class="subnavbtn"> Delhi <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-                <a href="#" onclick=del(0)> Show Grid </a>
-                <a href="#" onclick=del(1)> Grid Type </a>
-                <a href="#" onclick=del(2)> Class Label </a>
+          </div>
+          <div class="col">
+            <div class="section-small-maps">
+              <div id="map4" style="width: 250px; height: 250px"></div>
+              <div class="small-maps-label">Gurgaon</div>
             </div>
-        </div>
-        <div class="subnav" id="gurgaon">
-            <button class="subnavbtn"> Gurgaon <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-                <a href="#" onclick=gur(0)> Show Grid </a>
-                <a href="#" onclick=gur(1)> Grid Type </a>
-                <a href="#" onclick=gur(2)> Class Label </a>
+          </div>
+          <div class="col">
+            <div class="section-small-maps">
+              <div id="map5" style="width: 250px; height: 250px"></div>
+              <div class="small-maps-label">Hyderabad</div>
             </div>
-        </div>
-        <div class="subnav" id="hyderabad">
-            <button class="subnavbtn"> Hyderabad <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-                <a href="#" onclick=hyd(0)> Show Grid </a>
-                <a href="#" onclick=hyd(1)> Grid Type </a>
-                <a href="#" onclick=hyd(2)> Class Label </a>
+          </div>
+          <div class="col">
+            <div class="section-small-maps">
+              <div id="map6" style="width: 250px; height: 250px"></div>
+              <div class="small-maps-label">Kolkata</div>
             </div>
-        </div>
-        <div class="subnav" id="kolkata">
-            <button class="subnavbtn"> Kolkata <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-                <a href="#" onclick=kol(0)> Show Grid </a>
-                <a href="#" onclick=kol(1)> Grid Type </a>
-                <a href="#" onclick=kol(2)> Class Label </a>
+          </div>
+          <div class="col">
+            <div class="section-small-maps">
+              <div id="map7" style="width: 250px; height: 250px"></div>
+              <div class="small-maps-label">Mumbai</div>
             </div>
+          </div>
         </div>
-        <div class="subnav" id="mumbai">
-            <button class="subnavbtn"> Mumbai <i class="fa fa-caret-down"></i></button>
-            <div class="subnav-content">
-                <a href="#" onclick=mum(0)> Show Grid </a>
-                <a href="#" onclick=mum(1)> Grid Type </a>
-                <a href="#" onclick=mum(2)> Class Label </a>
+      </div>
+
+      <div id="population" class="category-sections">
+        <h1 class="section-header">Population Distribution in Districts</h1>
+        <div class="row section-2-row">
+          <div class="col section-2-col">
+            <p class="section-heading-ques">How Urbanised are these cities?</p>
+            <div class="section-method">
+              Method : (Population in urban and peri urban grids / Population
+              within District Boundary (in urban, periurban and rural
+              grids))*100
             </div>
+            <div class="section-inferences">
+              Inferences:
+              <ul>
+                <li>
+                  Chennai has the highest percentage of its population living in
+                  urban and periurban grids Bangalore has the least
+                </li>
+                <li>
+                  All cities except Bangalore have more than 50 % of their
+                  population living in urban and periurban grids
+                </li>
+                <li>
+                  Except for Bangalore and Gurgaon, all other districts have
+                  approximately 3/4th of their population living in urban and
+                  periurban grids.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <img class="section-image" src="images/pop/perc_pop.png" />
+            </div>
+          </div>
+          <div class="col section-2-col">
+            <p class="section-heading-ques">How Densely Populated are they?</p>
+            <div class="section-method">
+              Method:: Population in urban and periurban grids / number of urban
+              and periurban grids
+            </div>
+            <div class="section-inferences">
+              Inferences:
+              <ul>
+                <li>
+                  We can observe that Mumbai is most densely populated compared
+                  to other districts, and Gurgaon is the least densely
+                  populated.
+                </li>
+                <li>
+                  Mumbai has the highest population density, and also 3/4th of
+                  its population lives in urban and periurban grids which imply
+                  that these grids of Mumbai are very crowded and the rural
+                  grids are sparsely populated
+                </li>
+                <li>
+                  Gurgaon has the least population density, and only around 50%
+                  of its population resides in urban and periurban grids which
+                  imply that these grids are sparsely populated in Gurgaon, and
+                  a significant population of Gurgaon lives in rural grids too
+                </li>
+              </ul>
+            </div>
+            <div>
+              <img class="section-image" src="images/pop/pop_density.png" />
+            </div>
+          </div>
+          <div class="col section-2-col">
+            <p class="section-heading-ques">
+              Is The Population Distribution Uniform?
+            </p>
+            <div class="section-method">
+              Method:: For each urban periurban grid obtained population of
+              grid, reported gini index for that distribution
+            </div>
+            <div class="section-inferences">
+              Inferences:
+              <ul>
+                <li>
+                  Bangalore has highest gini index implying population
+                  distribution is highly localised in some grids
+                </li>
+                <li>
+                  Kolkata has least gini index (¡0.1) implying the population is
+                  almost uniformly distributed in grids
+                </li>
+                <li>
+                  Bangalore, Delhi and Gurgaon have significantly high gini
+                  index implying population in these cities is not that
+                  uniformly distributed as compared to Chennai, Hyderabad,
+                  Kolkata Mumbai having gini index around 0.1
+                </li>
+              </ul>
+            </div>
+            <div>
+              <img class="section-image" src="images/pop/pop_gini.png" />
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 40px">
+            <div class="row" style="justify-content: center">
+              <div class="col-4">
+                <div class="section-heading-ques">
+                  Which Parts of Cities are Most Densely Populated?
+                </div>
+                <div class="section-method">
+                  Population in Cx (C1,C2,C3,C4,C5) grids / number of Cx grids
+                  for a district
+                </div>
+                <div class="section-inferences">
+                  Inferences:
+                  <ul>
+                    <li>
+                      Population Density in Bangalore, Chennai, Delhi, Hyderabad
+                      Kolkata monotonically increases as we move from C1 to C4
+                      as expected but decreases in C5 in Bangalore and Chennai,
+                      this may be due to underreporting at the time of census as
+                      C5 grids contain areas like slums and jhuggis
+                      predominantly occupied by the migrant population.
+                    </li>
+                    <li>
+                      Almost Uniform Population Density is observed among C1-C5
+                      grids in Chennai, Kolkata Mumbai, implying that population
+                      is distributed uniformly, thus every grid class holds
+                      equal importance in these districts.
+                    </li>
+                  </ul>
+                </div>
+                <p>Hover over any image to enlarge</p>
+              </div>
+              <div class="col">
+                <img
+                  class="section-2-image growable"
+                  src="images/pop/ban.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop/che.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop/del.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop/gur.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop/hyd.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop/kol.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop/mum.png"
+                />
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 40px">
+            <h1 style="text-align: center">Population - Maps</h1>
+            <br />
+            <div class="row" style="display: flex">
+              <div class="col section-2-maps">
+                <div id="map8" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Bangalore</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map9" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Chennai</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map10" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Delhi</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map11" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Gurgaon</div>
+              </div>
+              <br />
+              <div class="col section-2-maps">
+                <div id="map12" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Hyderabad</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map13" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Kolkata</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map14" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Mumbai</div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div id="dist-amenity" class="category-sections">
+        <h1 class="section-header">Accessibility of Amenities</h1>
+        <div class="row section-2-row">
+          <div class="col-6 section-2-col">
+            <p class="section-heading-ques">
+              What are the nearest amenity distances for different parts of the
+              city?
+            </p>
+            <div class="section-method">
+              Method:: For grids of class Cx, obtained euclidean distance from
+              grid centre to nearest amenity site of a category, then reported
+              80 percentile of that distribution
+            </div>
+
+            <div class="row" style="margin-top: 20px">
+              <div class="col">
+                <img class="section-3-img growable" src="images/n/ban.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/n/che.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/n/del.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/n/gur.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/n/hyd.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/n/kol.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/n/mum.png" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 section-2-col">
+            <p class="section-heading-ques">
+              Overall in the city, what are the nearest amenity distances?
+            </p>
+            <div class="section-method">
+              a) Method:: For urban and periurban grids, obtained euclidean
+              distance from grid centre to nearest amenity site of a category,
+              then reported 80 percentile of that distribution
+              <br /><br />b) Method:: For urban and periurban grids, obtained
+              euclidean distance from grid centre to nearest amenity site of a
+              category, then plotted box plots for these distributions showing
+              25 percentile, 75 percentile, mean (green triangle in plot) and
+              median (orange horizontal line in box plot) values for the
+              distributions
+            </div>
+            <div class="section-inferences">
+              Inferences:
+              <ul>
+                <li>
+                  Delhi, Gurgaon seems to have worst accessibility of amenities
+                </li>
+                <li>Amenities are most accessible in Chennai</li>
+                <li>
+                  Connectivity is worse than other amenities in all the cities
+                </li>
+                <li>All amenities except connectivity is within 500 metres</li>
+              </ul>
+            </div>
+            <div class="row" style="margin-top: 20px">
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/n/Urban Periurban nearest dist.png"
+                />
+              </div>
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/n/Box_conn.png"
+                />
+              </div>
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/n/Box_edu.png"
+                />
+              </div>
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/n/Box_govt.png"
+                />
+              </div>
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/n/Box_health.png"
+                />
+              </div>
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/n/Box_utility.png"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 section-2-col">
+            <p class="section-heading-ques">
+              Which cities have the worst parts that are far away from essential
+              amenities?
+            </p>
+            <div class="section-method">
+              Method:: For urban and periurban grids, obtained euclidean
+              distance from grid centre to nearest amenity site ofa category,
+              plotted box plot of that distribution and identified number of
+              outlier grids from box plot, then found out what percentage of
+              total urban and periurban grids these outlier grids form
+            </div>
+            <div class="section-inferences">
+              Inferences:
+              <ul>
+                <li>
+                  Delhi has the highest percentage of outlier grids, implying
+                  the nearest amenity distance distribution has high variation,
+                  i.e. amenities in some grids are very near and in someare very
+                  far
+                </li>
+                <li>
+                  Hyderabad has the least percentage of outlier grids, implying
+                  the nearest amenity distance distribution has low variation,
+                  i.e. amenities in most grids lie within a small range
+                </li>
+              </ul>
+            </div>
+            <div>
+              <img
+                class="section-image"
+                src="images/n/outlier urban periurban nearesr dist.png"
+              />
+            </div>
+          </div>
+
+          <div class="col-6 section-2-col">
+            <p class="section-heading-ques">
+              What are these outliers and where do they lie in different parts
+              of the city?
+            </p>
+            <div class="section-method">
+              Method:: For urbanised (urban and periurban) grids, obtained
+              euclidean distance from grid centre to nearest amenity site of a
+              category, plotted box plot of that distribution and identified
+              outlier grids from box plot,then located them on google maps
+            </div>
+            <div class="section-inferences">
+              Inferences:
+              <ul>
+                <li>Most of the outliers lie on district boundary</li>
+                <li>
+                  Most of the identified areas are non residential, they are
+                  industrial areas, or wildlife parks etc.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <img class="section-image" src="images/n/outliers table.png" />
+            </div>
+          </div>
+
+          <div style="margin-top: 40px">
+            <h1 style="text-align: center">
+              Distance to Nearest Amenity - Maps
+            </h1>
+            <br />
+            <div class="row">
+              <div class="col section-2-maps">
+                <div id="map15" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Bangalore</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map16" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Chennai</div>
+              </div>
+              <div class="col map-radio-btns">
+                <!-- <div class="radio-options">
+                            <input class="form-check-input" type="radio" name="section-one-radio" id="section-1-radio" onclick=initMap(3,1) />
+                            <label class="form-check-label" for="section-1-radio">Connectivity</label>
+                        </div>
+
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-one-radio" id="section-1-radio" onclick=initMap(3,3) />
+                            <label class="form-check-label" for="section-1-radio">Education</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-one-radio" id="section-1-radio" onclick=initMap(3,5) />
+                            <label class="form-check-label" for="section-1-radio">Government Facilities</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-one-radio" id="section-1-radio" onclick=initMap(3,7) />
+                            <label class="form-check-label" for="section-1-radio">Health</label>
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="section-one-radio" id="section-1-radio" onclick=initMap(3,9) />
+                            <label class="form-check-label" for="section-1-radio">Utilities</label>
+                        </div> -->
+                <div class="radio-options">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-three-radio"
+                    id="section-3-radio"
+                    onclick="initMap3(1)"
+                  />
+                  <label class="form-check-label" for="section-3-radio"
+                    >Connectivity</label
+                  >
+                </div>
+
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-three-radio"
+                    id="section-3-radio"
+                    onclick="initMap3(3)"
+                  />
+                  <label class="form-check-label" for="section-3-radio"
+                    >Education</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-three-radio"
+                    id="section-3-radio"
+                    onclick="initMap3(5)"
+                  />
+                  <label class="form-check-label" for="section-3-radio"
+                    >Government Facilities</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-three-radio"
+                    id="section-3-radio"
+                    onclick="initMap3(7)"
+                  />
+                  <label class="form-check-label" for="section-3-radio"
+                    >Health</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-three-radio"
+                    id="section-3-radio"
+                    onclick="initMap3(9)"
+                  />
+                  <label class="form-check-label" for="section-3-radio"
+                    >Utilities</label
+                  >
+                </div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map17" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Delhi</div>
+              </div>
+
+              <br />
+              <div class="col section-2-maps">
+                <div id="map18" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Gurgaon</div>
+              </div>
+
+              <div class="col section-2-maps">
+                <div id="map19" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Hyderabad</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map20" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Kolkata</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map21" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Mumbai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="num-amenity" class="category-sections">
+        <h1 class="section-header">Availability of Amenities</h1>
+        <div class="row section-2-row">
+          <div class="col-6 section-2-col">
+            <p class="section-heading-ques">
+              How many amenities are within accessible distance from the
+              different parts of the city?
+            </p>
+            <div class="section-method">
+              Method:: For grids of class Cx, obtained number of amenity sites
+              within standard range, then reported 20 percentile of that
+              distribution, implying 80 percentile grids have more amenity sites
+              than this reported value within standard range
+            </div>
+
+            <div class="row" style="margin-top: 20px">
+              <div class="col">
+                <img class="section-3-img growable" src="images/num/ban.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/num/che.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/num/del.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/num/gur.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/num/hyd.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/num/kol.png" />
+              </div>
+              <div class="col">
+                <img class="section-3-img growable" src="images/num/mum.png" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 section-2-col">
+            <p class="section-heading-ques">
+              Overall as a city, what are the number of amenities within
+              accessible distance?
+            </p>
+            <div class="section-method">
+              a) Method:: For urban and periurban grids, obtained number of
+              amenity sites within standard range (acc to URDPFI guidelines),
+              then reported 20 percentile of that distribution, implying 80
+              percentile grids have more amenity sites than this reported value
+              <br /><br />b) Method:: For urban and periurban grids, obtained
+              number of amenity sites within standard range (acc to URDPFI
+              guidelines), then plotted box plots for these distributions
+              showing 25 percentile, 75 percentile, mean (green triangle in
+              plot) and median (orange horizontal line in box plot) values for
+              the distributions
+            </div>
+            <div class="section-inferences">
+              Inferences:
+              <ul>
+                <li>Delhi seems to have worst availability of amenities</li>
+                <li>Availability of amenities is best in Mumbai</li>
+                <li>
+                  Connectivity is worse than other amenities in all the cities
+                </li>
+              </ul>
+            </div>
+            <div class="row" style="margin-top: 20px">
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/num/Urban PeriUrban Num Amenities.png"
+                />
+              </div>
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/num/Box_conn.png"
+                />
+              </div>
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/num/Box_edu.png"
+                />
+              </div>
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/num/Box_govt.png"
+                />
+              </div>
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/num/Box_health.png"
+                />
+              </div>
+              <div class="col">
+                <img
+                  class="section-3-img growable"
+                  src="images/num/Box_utility.png"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 40px">
+            <h1 style="text-align: center">Number Of Amenities - Maps</h1>
+            <br />
+            <div class="row">
+              <div class="col section-2-maps">
+                <div id="map22" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Bangalore</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map23" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Chennai</div>
+              </div>
+              <div class="col map-radio-btns">
+                <div class="radio-options">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-four-radio"
+                    id="section-4-radio"
+                    onclick="initMap4(2)"
+                  />
+                  <label class="form-check-label" for="section-4-radio"
+                    >Connectivity</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-four-radio"
+                    id="section-4-radio"
+                    onclick="initMap4(4)"
+                  />
+                  <label class="form-check-label" for="section-4-radio"
+                    >Education</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-four-radio"
+                    id="section-4-radio"
+                    onclick="initMap4(6)"
+                  />
+                  <label class="form-check-label" for="section-4-radio"
+                    >Government Facilities</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-four-radio"
+                    id="section-4-radio"
+                    onclick="initMap4(8)"
+                  />
+                  <label class="form-check-label" for="section-4-radio"
+                    >Health</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-four-radio"
+                    id="section-4-radio"
+                    onclick="initMap4(10)"
+                  />
+                  <label class="form-check-label" for="section-4-radio"
+                    >Utilities</label
+                  >
+                </div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map24" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Delhi</div>
+              </div>
+              <br />
+              <div class="col section-2-maps">
+                <div id="map25" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Gurgaon</div>
+              </div>
+
+              <div class="col section-2-maps">
+                <div id="map26" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Hyderabad</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map27" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Kolkata</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map28" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Mumbai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="load-amenity" class="category-sections">
+        <h1 class="section-header">Population load on Amenities</h1>
+        <div class="row section-2-row">
+          <div class="row" style="margin-top: 40px">
+            <div class="row" style="justify-content: center">
+              <div class="col-4">
+                <div class="section-heading-ques">
+                  Overall in a city, how much population do the amenities serve?
+                </div>
+                <div class="section-method">
+                  Method:: For amenities in city obtained population of their
+                  voronoi catchment area, then for amenities in urbanised (urban
+                  and periurban) grids, reported 80 percentile of that
+                  distribution
+                </div>
+                <div class="section-inferences">
+                  Inferences:
+                  <ul>
+                    <li>
+                      Cities having less load like Gurgaon imply that these
+                      cities have sufficient amenity infrastructure as compared
+                      to other cities
+                    </li>
+                    <li>
+                      Mumbai has high population load on amenities and it also
+                      had high population density in combined grids, this
+                      implies that the amenity infrastructure is far behind the
+                      demand thus are strained
+                    </li>
+                    <li>
+                      Cities like Bangalore which didn’t have that high
+                      population density nor that much percentage of population
+                      living in combined grids and still having highest load on
+                      amenities imply the amenity infrastructure is worse here
+                    </li>
+                    <li>
+                      Education and Health were least strained amenities overall
+                      which is good since these are basic amenities
+                    </li>
+                    <li>
+                      Connectivity is highly constrained which may be due to
+                      incomplete data on google places
+                    </li>
+                  </ul>
+                </div>
+                <div class="section-heading-ques">
+                  How much population do the nearest amenities serve in
+                  different parts of the cities?
+                </div>
+                <div class="section-method">
+                  Method:: For each Cz grid obtained population innearest
+                  amenity (within std range) catchment area, reported80
+                  percentile of that distribution
+                </div>
+                <div class="section-inferences">
+                  Inferences:
+                  <ul>
+                    <li>
+                      All districts except Delhi (least load in C2 grids) have
+                      least overall population load in grids C4 (Chennai,
+                      Gurgaon, Kolkata, Mumbai) or C5 (Bangalore, Hyderabad).
+                      Thus residential grids bear least load in all districts
+                      except Delhi
+                    </li>
+                    <li>
+                      All districts except Delhi (max load in C5 overall) and
+                      Hyderabad (max load in C4 overall), bear max load overall
+                      in grids C1 (Gurgaon, Kolkata, Mumbai), C2 (Chennai) or C3
+                      (Bangalore). Thus non residential grids bear maximum load
+                      in all districts except Delhi and Hyderabad
+                    </li>
+                  </ul>
+                </div>
+                <p>Hover over any image to enlarge</p>
+              </div>
+              <div class="col">
+                <br />
+                <br />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/Voronoi pop load.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/Connectivity voronoi pop load.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/ban1.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/ban2.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/che1.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/che2.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/del1.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/del2.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/gur1.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/gur2.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/hyd1.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/hyd2.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/kol1.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/kol2.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/mum1.png"
+                />
+                <img
+                  class="section-2-image growable"
+                  src="images/pop_load/mum2.png"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 40px">
+            <h1 style="text-align: center">Popu. Load - Maps</h1>
+            <br />
+            <div class="row">
+              <div class="col section-2-maps">
+                <div id="map29" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Bangalore</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map30" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Chennai</div>
+              </div>
+              <div class="col map-radio-btns">
+                <div class="radio-options">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-four-radio"
+                    id="section-4-radio"
+                    onclick="initMap4(2)"
+                  />
+                  <label class="form-check-label" for="section-4-radio"
+                    >Connectivity</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-four-radio"
+                    id="section-4-radio"
+                    onclick="initMap4(4)"
+                  />
+                  <label class="form-check-label" for="section-4-radio"
+                    >Education</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-four-radio"
+                    id="section-4-radio"
+                    onclick="initMap4(6)"
+                  />
+                  <label class="form-check-label" for="section-4-radio"
+                    >Government Facilities</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-four-radio"
+                    id="section-4-radio"
+                    onclick="initMap4(8)"
+                  />
+                  <label class="form-check-label" for="section-4-radio"
+                    >Health</label
+                  >
+                </div>
+                <div>
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="section-four-radio"
+                    id="section-4-radio"
+                    onclick="initMap4(10)"
+                  />
+                  <label class="form-check-label" for="section-4-radio"
+                    >Utilities</label
+                  >
+                </div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map31" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Delhi</div>
+              </div>
+              <br />
+              <div class="col section-2-maps">
+                <div id="map32" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Gurgaon</div>
+              </div>
+
+              <div class="col section-2-maps">
+                <div id="map33" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Hyderabad</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map34" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Kolkata</div>
+              </div>
+              <div class="col section-2-maps">
+                <div id="map35" style="width: 350px; height: 350px"></div>
+                <div class="small-maps-label">Mumbai</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="map"></div>
 
-    <script>
-        let map;
-        let infoWindow;
-        let Grid_type;
-        var gridtypeColor = [];
-        let Class_label;
-        var classlabelColor = [];
+    <!-- Javascript -->
+    <script src="gem-script.js"></script>
+    <script src="gem-cities.js"></script>
+    <script src="gem-fun.js"></script>
 
-        var basemap = { lat: 20.59, lng: 78.96 }
-        var bangalore = { lat: 12.97, lng: 77.59 }
-        var chandigarh = { lat: 30.73, lng: 76.78 }
-        var chennai = { lat: 13.08, lng: 80.27 }
-        var delhi = { lat: 28.70, lng: 77.10 }
-        var gurgaon = { lat: 28.46, lng: 77.03 }
-        var hyderabad = { lat: 17.38, lng: 78.49 }
-        var kolkata = { lat: 22.57, lng: 88.36 }
-        var mumbai = { lat: 19.08, lng: 72.88 }
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap1"
+    ></script>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap2"
+    ></script>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap3"
+    ></script>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap4"
+    ></script>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap5"
+    ></script>
 
-        function initMap(options) {
-            map = new google.maps.Map(document.getElementById("map"), options);
-        }
-
-        document.getElementById("basemap").addEventListener("click", function () {
-            map.setCenter(basemap);
-            map.setZoom(5);
-        })
-        document.getElementById("bangalore").addEventListener("click", function () {
-            map.setCenter(bangalore);
-            map.setZoom(10);
-        })
-        document.getElementById("chandigarh").addEventListener("click", function () {
-            map.setCenter(chandigarh);
-            map.setZoom(10);
-        })
-        document.getElementById("chennai").addEventListener("click", function () {
-            map.setCenter(chennai);
-            map.setZoom(10);
-        })
-        document.getElementById("delhi").addEventListener("click", function () {
-            map.setCenter(delhi);
-            map.setZoom(10);
-        })
-        document.getElementById("gurgaon").addEventListener("click", function () {
-            map.setCenter(gurgaon);
-            map.setZoom(10);
-        })
-        document.getElementById("hyderabad").addEventListener("click", function () {
-            map.setCenter(hyderabad);
-            map.setZoom(10);
-        })
-        document.getElementById("kolkata").addEventListener("click", function () {
-            map.setCenter(kolkata);
-            map.setZoom(10);
-        })
-        document.getElementById("mumbai").addEventListener("click", function () {
-            map.setCenter(mumbai);
-            map.setZoom(10);
-        })
-
-        function ban(flag) {
-            initMap({ zoom: 10, center: bangalore });
-
-            Grid_type = Bangalore_Grid_type;
-            Class_label = Bangalore_Class_label;
-
-            getColorArrays(Grid_type, gridtypeColor);
-            getColorArrays(Class_label, classlabelColor);
-
-            let k = 0;
-            for (let i = 0; i < 51; i++)
-                for (let j = 0; j < 59; j++) {
-                    setCoords({ properties: { lat: Bangalore_Grid_Coordinates[0] + 0.01 * j, lng: Bangalore_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
-                    k += 1;
-                }
-        }
-        function chd(flag) {
-            initMap({ zoom: 10, center: chandigarh });
-
-            let k = 0;
-            for (let i = 0; i < 15; i++)
-                for (let j = 0; j < 14; j++) {
-                    setCoords({ properties: { lat: 30.66 + 0.01 * j, lng: 76.69 + 0.01 * i, num: k } }, flag);
-                    k += 1;
-                }
-        }
-        function chn(flag) {
-            initMap({ zoom: 10, center: chennai });
-
-            Grid_type = Chennai_Grid_type;
-            Class_label = Chennai_Class_label;
-
-            getColorArrays(Grid_type, gridtypeColor);
-            getColorArrays(Class_label, classlabelColor);
-
-            let k = 0;
-            for (let i = 0; i < 15; i++)
-                for (let j = 0; j < 19; j++) {
-                    setCoords({ properties: { lat: Chennai_Grid_Coordinates[0] + 0.01 * j, lng: Chennai_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
-                    k += 1;
-                }
-        }
-        function del(flag) {
-            initMap({ zoom: 10, center: delhi });
-
-            Grid_type = Delhi_Grid_type;
-            Class_label = Delhi_Class_label;
-
-            getColorArrays(Grid_type, gridtypeColor);
-            getColorArrays(Class_label, classlabelColor);
-            
-            let k = 0;
-            for (let i = 0; i < 51; i++)
-                for (let j = 0; j < 49; j++) {
-                    setCoords({ properties: { lat: Delhi_Grid_Coordinates[0] + 0.01 * j, lng: Delhi_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
-                    k += 1;
-                }
-        }
-        function gur(flag) {
-            initMap({ zoom: 10, center: gurgaon });
-
-            Grid_type = Gurgaon_Grid_type;
-            Class_label = Gurgaon_Class_label;
-
-            getColorArrays(Grid_type, gridtypeColor);
-            getColorArrays(Class_label, classlabelColor);
-
-            let k = 0;
-            for (let i = 0; i < 61; i++)
-                for (let j = 0; j < 35; j++) {
-                    setCoords({ properties: { lat: Gurgaon_Grid_Coordinates[0] + 0.01 * j, lng: Gurgaon_Grid_Coordinates[0] + 0.01 * i, num: k } }, flag);
-                    k += 1;
-                }
-        }
-        function hyd(flag) {
-            initMap({ zoom: 10, center: hyderabad });
-
-            Grid_type = Hyderabad_Grid_type;
-            Class_label = Hyderabad_Class_label;
-
-            getColorArrays(Grid_type, gridtypeColor);
-            getColorArrays(Class_label, classlabelColor);
-
-            let k = 0;
-            for (let i = 0; i < 16; i++)
-                for (let j = 0; j < 19; j++) {
-                    setCoords({ properties: { lat: Hyderabad_Grid_Coordinates[0] + 0.01 * j, lng: Hyderabad_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
-                    k += 1;
-                }
-        }
-        function kol(flag) {
-            initMap({ zoom: 10, center: kolkata });
-
-            Grid_type = Kolkata_Grid_type;
-            Class_label = Kolkata_Class_label;
-
-            getColorArrays(Grid_type, gridtypeColor);
-            getColorArrays(Class_label, classlabelColor);
-
-            let k = 0;
-            for (let i = 0; i < 14; i++)
-                for (let j = 0; j < 14; j++) {
-                    setCoords({ properties: { lat: Kolkata_Grid_Coordinates[0] + 0.01 * j, lng: Kolkata_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
-                    k += 1;
-                }
-        }
-        function mum(flag) {
-            initMap({ zoom: 10, center: mumbai });
-
-            Grid_type = Mumbai_Grid_type;
-            Class_label = Mumbai_Class_label;
-
-            getColorArrays(Grid_type, gridtypeColor);
-            getColorArrays(Class_label, classlabelColor);
-
-            let k = 0;
-            for (let i = 0; i < 22; i++)
-                for (let j = 0; j < 38; j++) {
-                    setCoords({ properties: { lat: Mumbai_Grid_Coordinates[0] + 0.01 * j, lng: Mumbai_Grid_Coordinates[1] + 0.01 * i, num: k } }, flag);
-                    k += 1;
-                }
-        }
-  
-        function setCoords(props, flag) {
-            var gridNumber = props.properties.num
-            var lat1 = props.properties.lat
-            var lng1 = props.properties.lng
-            var lat2 = props.properties.lat + 0.01
-            var lng2 = props.properties.lng
-            var lat3 = props.properties.lat + 0.01
-            var lng3 = props.properties.lng + 0.01
-            var lat4 = props.properties.lat
-            var lng4 = props.properties.lng + 0.01
-
-            const myGrid = new google.maps.Polygon
-                ({
-                    paths:
-                        [
-                            { lat: lat1, lng: lng1 },
-                            { lat: lat2, lng: lng2 },
-                            { lat: lat3, lng: lng3 },
-                            { lat: lat4, lng: lng4 },
-                        ],
-
-                    strokeColor: "#000000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 1,
-                    fillColor: getColor(gridNumber, flag),
-                    fillOpacity: 0.3,
-                });
-
-            myGrid.setMap(map);
-            myGrid.addListener("click", showArrays);
-            infoWindow = new google.maps.InfoWindow();
-        }
-
-        function getColor(gridNumber, flag) {
-            var color = "#";
-            var i = gridNumber;
-
-            if (flag == 0) color += "FFFFFF00"
-            else if (flag == 1) {
-                color += gridtypeColor[i];
-            }
-            else if (flag == 2) {
-                color += classlabelColor[i];
-            }
-            return color;
-        }
-
-        function showArrays(event) {
-            const polygon = this;
-            const vertices = polygon.getPath();
-            let contentString =
-                "Location: <br>" + event.latLng.lat() + ", " + event.latLng.lng() + "<br>" +
-                "<br>Grid Coordinates: ";
-
-            for (let i = 0; i < vertices.getLength(); i++) {
-                const xy = vertices.getAt(i);
-                contentString += "<br>" + "Coordinate " + (i + 1) + ": " + xy.lat().toFixed(2) + ", " + xy.lng().toFixed(2);
-            }
-
-            infoWindow.setContent(contentString);
-            infoWindow.setPosition(event.latLng);
-            infoWindow.open(map);
-        }
-
-        function getColorArrays(arr, arrc) {
-        var init = 0;
-            for (var x = 1; x < arr.length; x += 2) {
-                init = arr[x];
-                for (var y = 0; y < init; y++) {
-                    arrc.push(_Color(arr[x - 1]))
-                }
-            }
-        }
-
-        function _Color(type) {
-            if (type == "Rejected") return "000000";
-            else if (type == "Rural") return "FFFF00";
-            else if (type == "PeriUrban") return "FFA500";
-            else if (type == "Urban") return "FF0000";
-
-            else if (type == "0.0") return "000000";
-            else if (type == "1.0") return "FFFF00";
-            else if (type == "2.0") return "90EE90";
-            else if (type == "3.0") return "006400";
-            else if (type == "4.0") return "00008b";
-            else if (type == "5.0") return "800080";
-
-            else return "FFFFFF";
-        }
-    </script>
-
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcUwalgqsvIaIGrfePKN1qNdoDMJJWy2A&callback=initMap">
-        </script>
-</body>
-
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
