@@ -47,7 +47,6 @@ def compress(arr, df, distt, ri, rf, flag):
                 x = math.floor(arr[r][c]/fac)
             else:
                 x = arr[r][c]
-
             if c == 0:
                 f.write("\nvar " + distt + "_" + str(df.columns[r]) + " = [")
                 t = 1

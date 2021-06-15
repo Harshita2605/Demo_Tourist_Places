@@ -4,7 +4,7 @@ import numpy as np
 import math
 import sys
 
-fout = "js/n2.js"
+fout = "js/popuload.js"
 f = open(fout, "w")
 
 def write(fin, fac):
@@ -16,7 +16,10 @@ def write(fin, fac):
 
     for r in range (1, np.size(arr, 0)):
         for c in range (0, np.size(arr, 1)):
-            x = math.floor(arr[r][c]/fac)
+            if arr[r][c] >= 0:
+                x = math.floor(arr[r][c]/fac)
+            else:
+                x = arr[r][c]
             if x > 9:
                 x = 10
             if c == 0:
@@ -39,11 +42,11 @@ def write(fin, fac):
     f.write("\n" + str(count))
 
 
-for file in sorted(glob('data/conn/n/*.csv')): write(file, 20)
-for file in sorted(glob('data/edu/n/*.csv')): write(file, 150)
-for file in sorted(glob('data/govt/n/*.csv')): write(file, 150)
-for file in sorted(glob('data/health/n/*.csv')): write(file, 200)
-for file in sorted(glob('data/utility/n/*.csv')): write(file, 50)
+for file in sorted(glob('data/conn/pload/*.csv')): write(file, 2000)
+for file in sorted(glob('data/edu/pload/*.csv')): write(file, 2000)
+for file in sorted(glob('data/govt/pload/*.csv')): write(file, 2500)
+for file in sorted(glob('data/health/pload/*.csv')): write(file, 2000)
+for file in sorted(glob('data/utility/pload/*.csv')): write(file, 2000)
 
 
 f.close()

@@ -17,6 +17,8 @@ def write(fin, fac):
     for r in range (1, np.size(arr, 0)):
         for c in range (0, np.size(arr, 1)):
             x = math.floor(arr[r][c]/fac)
+            if x > 9:
+                x = 10
             if c == 0:
                 f.write("\nvar "  + str(df.columns[r]) + " = [")
                 t = 0
