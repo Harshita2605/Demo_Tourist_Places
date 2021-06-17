@@ -128,8 +128,7 @@
           <div class="col border-right border-dark">
             <h2>WorldPop Based Indicators</h2>
             <div>
-              WorldPop Based Indicator vaale subsection mai ye likhna -
-              "WorldPop includes the rasterized data of the population of
+              WorldPop includes the rasterized data of the population of
               different countries. Among various formats of the dataset
               available at Worldpop, we used their “top-down constrained” model.
               The top-down approach takes a global database of the
@@ -151,24 +150,22 @@
               bounded catchment area that lied within the bounding box of
               district, we found out the population in that catchment area and
               called that as population load on that amenity site assuming that
-              the amenity site serves all people within its catchment area."
+              the amenity site serves all people within its catchment area.
             </div>
           </div>
           <div class="col">
             <h2>Google Places Based Indicators</h2>
             <div>
-              Google Places Based Indicators vaale subsection mai ye text likhna
-              - "Using the Google Places API, one can search for place
-              information using various categories, including establishments,
-              prominent points of interest, and geographic locations. We used
-              their “Place Search” API that returns a list of places and summary
-              information about each site, including their geographical
-              coordinates. We use these coordinates, after some pre-processing,
-              in our further analysis. We generate HTTP Request on places API
-              which takes type of category, centre and radius as input and
-              returns the data of that type of amenities present in the circular
-              region including their latitude and longitude in form of json
-              file."
+              Using the Google Places API, one can search for place information
+              using various categories, including establishments, prominent
+              points of interest, and geographic locations. We used their “Place
+              Search” API that returns a list of places and summary information
+              about each site, including their geographical coordinates. We use
+              these coordinates, after some pre-processing, in our further
+              analysis. We generate HTTP Request on places API which takes type
+              of category, centre and radius as input and returns the data of
+              that type of amenities present in the circular region including
+              their latitude and longitude in form of json file.
             </div>
           </div>
         </div>
@@ -279,14 +276,31 @@
       <div id="urban-grids" class="category-sections">
         <h1 class="section-header">Categorising Urban Areas</h1>
         <div class="row section-container">
-          <div class="col-3 section-description">
-            <a href="https://www.cse.iitd.ac.in/~aseth/urbanization.pdf"
-              >https://www.cse.iitd.ac.in/~aseth/urbanization.pdf</a
+          <div class="col section-description">
+            You can refer our research paper here : <br />
+            <a
+              style="color: blue"
+              href="https://www.cse.iitd.ac.in/~aseth/urbanization.pdf"
+              >Leveraging Web Data to Monitor Changes in Corporate-Government
+              Interlocks in India -</a
             >
+
+            <br />
+
+            <i
+              >A. Sen, A. Agarwal, A. Guru, A. Choudhuri, G. Singh, I. Mohammed,
+              J. Goyal, K. Mittal, M. Singh, M. Goel, S. Gupta, S. Pathak, V.
+              Madapur, and A. Seth.
+            </i>
+            <br />ACM COMPASS 2018
           </div>
           <div class="col">
             <div class="section-large-map">
-              <div id="map1" style="width: 600px; height: 400px"></div>
+              <div class="col">
+                <div id="map1" style="width: 600px; height: 400px"></div>
+                <div class="" style="text-align: center">Bengaluru</div>
+              </div>
+
               <div class="map-radio-btns">
                 <div class="radio-options">
                   <input

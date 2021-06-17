@@ -6,6 +6,15 @@ body {
   padding: 0;
 }
 
+a {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+a:hover {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
+
 .main-intro-section {
   display: flex;
   flex-direction: column;
@@ -31,17 +40,18 @@ body {
   margin: 0;
   z-index: 10;
   border-bottom: 1px solid black;
+  margin-bottom: 10px;
 }
 
 .main-link-item {
   margin: 0 10px;
   padding: 5px;
-  text-decoration: underline;
   cursor: pointer;
 }
 
 .main-link-item:hover {
-  background-color: lightgray;
+  background-color: white;
+  color: green;
 }
 
 .method-img {
