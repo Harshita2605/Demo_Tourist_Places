@@ -24,7 +24,7 @@ function setCoords(props, mapx) {
             lng: lng4
         }, ],
 
-        strokeColor: "#000000",
+        strokeColor: "#808080",
         strokeOpacity: 0.8,
         strokeWeight: 1,
         fillColor: getColor(gridNumber),
