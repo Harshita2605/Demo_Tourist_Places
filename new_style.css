@@ -14,8 +14,8 @@ a {
 .navbar-title {
   margin: auto 0;
   font-size: 28px;
-
   font-weight: 600;
+  width: 50vw;
 }
 
 .nav-item {
@@ -34,6 +34,7 @@ a {
 
 .card {
   margin: 10px 0px;
+  font-weight: 600;
 }
 
 .card-img-top {
@@ -106,6 +107,45 @@ a {
   margin: auto;
 }
 
+.text-container {
+  margin-top: 20px;
+}
+
+.maps-container {
+  margin-top: 20px;
+}
+
+.city-map {
+  width: 100%;
+  height: 400px;
+}
+
+.city-map-label {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 20px;
+}
+
+.map-radio-btns {
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.section-heading-ques {
+  font-size: 20px;
+  font-style: italic;
+}
+
+.section-inferences {
+  margin-top: 10px;
+}
+
+.section-image {
+  width: 100%;
+  border: 1px solid #dfdfdf;
+  margin-bottom: 10px;
+}
+
 @media only screen and (max-width: 600px) {
   .main-cards {
     margin-top: 0%;
@@ -120,5 +160,17 @@ a {
   .container-content {
     max-height: 350px;
     border-bottom: 1px solid #dfdfdf;
+  }
+  .map-radio-btns {
+    margin-top: 10px;
+    margin-left: 10px;
+    justify-content: flex-start;
+  }
+  .section-image {
+    width: 100%;
+  }
+  .navbar-title {
+    font-size: 20px;
+    width: 70vw;
   }
 }

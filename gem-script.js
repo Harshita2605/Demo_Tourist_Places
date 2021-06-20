@@ -21,12 +21,12 @@ var mumbai = { lat: 19.08, lng: 72.88 };
 
 var op = { zoom: 5, center: basemap };
 
-function initMap() {
-  initMap1(1);
-  initMap2(1);
-  initMap3(1);
-  initMap4(1);
-  initMap5(1);
+function initMap(flag) {
+  if (flag == 1) initMap1(1);
+  else if (flag == 2) initMap2(1);
+  else if (flag == 3) initMap3(1);
+  else if (flag == 4) initMap4(1);
+  else if (flag == 5) initMap5(1);
 }
 
 function initMap1(flag) {
@@ -142,24 +142,4 @@ function loadmap(flag) {
   hyd(4, flag, map33);
   kol(4, flag, map34);
   mum(4, flag, map35);
-}
-
-// When the user scrolls the page, execute myFunction
-window.onscroll = function () {
-  myFunction();
-};
-
-// Get the navbar
-var navbar = document.getElementById("navbar");
-
-// Get the offset position of the navbar
-var sticky = navbar.offsetTop;
-
-// Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky");
-  } else {
-    navbar.classList.remove("sticky");
-  }
 }
