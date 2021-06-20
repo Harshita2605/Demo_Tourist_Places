@@ -39,6 +39,7 @@ a {
 .card-img-top {
   object-fit: cover;
   height: 200px;
+  border-bottom: 1px solid #dfdfdf;
 }
 
 .main-text {
@@ -51,6 +52,7 @@ a {
   background-color: #f7f7f7;
   padding: 20px 0;
   margin-top: 10px;
+  margin-bottom: 30px;
   border-radius: 5px;
 }
 
@@ -62,11 +64,61 @@ a {
   height: 150px;
 }
 
+.dataset-container {
+  margin-bottom: 30px;
+}
+
+.dataset-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.dataset-img {
+  height: 220px;
+  padding: 20px;
+  border: 1px solid #dfdfdf;
+  border-radius: 5px;
+}
+
+.container-heading {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.container-content {
+  max-height: 280px;
+  overflow-y: scroll;
+}
+
+.container-content::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
+.table {
+  background-color: #f8f9fa;
+}
+
+.overall-image-container {
+  display: block;
+  margin: auto;
+}
+
 @media only screen and (max-width: 600px) {
   .main-cards {
     margin-top: 0%;
   }
   .paper-reference {
     padding: 10px;
+  }
+  .dataset-img {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .container-content {
+    max-height: 350px;
+    border-bottom: 1px solid #dfdfdf;
   }
 }
