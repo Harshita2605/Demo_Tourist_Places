@@ -10,20 +10,20 @@ function makeLegend1(legendid, map, flag) {
     if (flag == 1) {
         const div = document.createElement("div");
         div.innerHTML =
-            '<div style="background-color:#000000">' + 'Rejected' + '</div>' +
-            '<div style="background-color:#453781">' + 'Urban' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#000000">' + 'Rejected' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#453781">' + 'Urban' + '</div>' +
             '<div style="background-color:#3CBB75">' + 'PeriUrban' + '</div>' +
-            '<div style="background-color:#FFFFFF">' + 'Rural' + '</div>';
+            '<div style="color:#FFFFFF;background-color:#FFFFFF">' + 'Rural' + '</div>';
         legend.appendChild(div);
     } else if (flag == 2) {
         const div = document.createElement("div");
         div.innerHTML =
-            '<div style="background-color:#444444">' + 'Class Label 0' + '</div>' +
-            '<div style="background-color:#481567">' + 'Class Label 1' + '</div>' +
-            '<div style="background-color:#453781">' + 'Class Label 2' + '</div>' +
-            '<div style="background-color:#39569C">' + 'Class Label 3' + '</div>' +
-            '<div style="background-color:#2D708E">' + 'Class Label 4' + '</div>' +
-            '<div style="background-color:#238A8D">' + 'Class Label 5' + '</div>';
+            '<div style="color:#FFFFFF;background-color:#444444">' + 'Class Label 0' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#481567">' + 'Class Label 1' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#453781">' + 'Class Label 2' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#39569C">' + 'Class Label 3' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#2D708E">' + 'Class Label 4' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#238A8D">' + 'Class Label 5' + '</div>';
         legend.appendChild(div);
     } else {
         var fac;
@@ -35,12 +35,12 @@ function makeLegend1(legendid, map, flag) {
             fac = 0.3;
         const div = document.createElement("div");
         div.innerHTML =
-            '<div style="background-color:#444444">' + '0 - ' + fac + '</div>' +
-            '<div style="background-color:#481567">' + fac + ' - ' + fac * 2 + '</div>' +
-            '<div style="background-color:#453781">' + fac * 2 + ' - ' + fac * 3 + '</div>' +
-            '<div style="background-color:#39569C">' + fac * 3 + ' - ' + fac * 4 + '</div>' +
-            '<div style="background-color:#2D708E">' + fac * 4 + ' - ' + fac * 5 + '</div>' +
-            '<div style="background-color:#238A8D">' + fac * 5 + ' - ' + fac * 6 + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#444444">' + '0 - ' + fac + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#481567">' + fac + ' - ' + fac * 2 + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#453781">' + fac * 2 + ' - ' + fac * 3 + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#39569C">' + fac * 3 + ' - ' + fac * 4 + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#2D708E">' + fac * 4 + ' - ' + fac * 5 + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#238A8D">' + fac * 5 + ' - ' + fac * 6 + '</div>' +
             '<div style="background-color:#20A387">' + fac * 6 + ' - ' + fac * 7 + '</div>' +
             '<div style="background-color:#3CBB75">' + fac * 7 + ' - ' + fac * 8 + '</div>' +
             '<div style="background-color:#95D840">' + fac * 8 + ' - ' + fac * 9 + '</div>' +
@@ -75,12 +75,12 @@ function makeLegend2(legendid, map, flag) {
         fac = 10000;
     const div = document.createElement("div");
     div.innerHTML =
-        '<div style="background-color:#444444">' + '0 - ' + fac + '</div>' +
-        '<div style="background-color:#481567">' + fac + ' - ' + fac * 2 + '</div>' +
-        '<div style="background-color:#453781">' + fac * 2 + ' - ' + fac * 3 + '</div>' +
-        '<div style="background-color:#39569C">' + fac * 3 + ' - ' + fac * 4 + '</div>' +
-        '<div style="background-color:#2D708E">' + fac * 4 + ' - ' + fac * 5 + '</div>' +
-        '<div style="background-color:#238A8D">' + fac * 5 + ' - ' + fac * 6 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#444444">' + '0 - ' + fac + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#481567">' + fac + ' - ' + fac * 2 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#453781">' + fac * 2 + ' - ' + fac * 3 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#39569C">' + fac * 3 + ' - ' + fac * 4 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#2D708E">' + fac * 4 + ' - ' + fac * 5 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#238A8D">' + fac * 5 + ' - ' + fac * 6 + '</div>' +
         '<div style="background-color:#20A387">' + fac * 6 + ' - ' + fac * 7 + '</div>' +
         '<div style="background-color:#3CBB75">' + fac * 7 + ' - ' + fac * 8 + '</div>' +
         '<div style="background-color:#95D840">' + fac * 8 + ' - ' + fac * 9 + '</div>' +
@@ -113,12 +113,12 @@ function makeLegend3(legendid, map, flag) {
         fac = 1;
     const div = document.createElement("div");
     div.innerHTML =
-        '<div style="background-color:#444444">' + '0 - ' + fac + '</div>' +
-        '<div style="background-color:#481567">' + fac + ' - ' + fac * 2 + '</div>' +
-        '<div style="background-color:#453781">' + fac * 2 + ' - ' + fac * 3 + '</div>' +
-        '<div style="background-color:#39569C">' + fac * 3 + ' - ' + fac * 4 + '</div>' +
-        '<div style="background-color:#2D708E">' + fac * 4 + ' - ' + fac * 5 + '</div>' +
-        '<div style="background-color:#238A8D">' + fac * 5 + ' - ' + fac * 6 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#444444">' + '0 - ' + fac + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#481567">' + fac + ' - ' + fac * 2 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#453781">' + fac * 2 + ' - ' + fac * 3 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#39569C">' + fac * 3 + ' - ' + fac * 4 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#2D708E">' + fac * 4 + ' - ' + fac * 5 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#238A8D">' + fac * 5 + ' - ' + fac * 6 + '</div>' +
         '<div style="background-color:#20A387">' + fac * 6 + ' - ' + fac * 7 + '</div>' +
         '<div style="background-color:#3CBB75">' + fac * 7 + ' - ' + fac * 8 + '</div>' +
         '<div style="background-color:#95D840">' + fac * 8 + ' - ' + fac * 9 + '</div>' +
@@ -143,12 +143,12 @@ function makeLegend4(legendid, map, flag) {
 
     const div = document.createElement("div");
     div.innerHTML =
-        '<div style="background-color:#444444">' + '0 - ' + fac + '</div>' +
-        '<div style="background-color:#481567">' + fac + ' - ' + fac * 2 + '</div>' +
-        '<div style="background-color:#453781">' + fac * 2 + ' - ' + fac * 3 + '</div>' +
-        '<div style="background-color:#39569C">' + fac * 3 + ' - ' + fac * 4 + '</div>' +
-        '<div style="background-color:#2D708E">' + fac * 4 + ' - ' + fac * 5 + '</div>' +
-        '<div style="background-color:#238A8D">' + fac * 5 + ' - ' + fac * 6 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#444444">' + '0 - ' + fac + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#481567">' + fac + ' - ' + fac * 2 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#453781">' + fac * 2 + ' - ' + fac * 3 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#39569C">' + fac * 3 + ' - ' + fac * 4 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#2D708E">' + fac * 4 + ' - ' + fac * 5 + '</div>' +
+        '<div style="color:#FFFFFF;background-color:#238A8D">' + fac * 5 + ' - ' + fac * 6 + '</div>' +
         '<div style="background-color:#20A387">' + fac * 6 + ' - ' + fac * 7 + '</div>' +
         '<div style="background-color:#3CBB75">' + fac * 7 + ' - ' + fac * 8 + '</div>' +
         '<div style="background-color:#95D840">' + fac * 8 + ' - ' + fac * 9 + '</div>' +
