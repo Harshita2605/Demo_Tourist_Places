@@ -13,7 +13,7 @@ function makeLegend1(legendid, map, flag) {
             '<div style="color:#FFFFFF;background-color:#000000">' + 'Rejected' + '</div>' +
             '<div style="color:#FFFFFF;background-color:#453781">' + 'Urban' + '</div>' +
             '<div style="background-color:#3CBB75">' + 'PeriUrban' + '</div>' +
-            '<div style="color:#FFFFFF;background-color:#FFFFFF">' + 'Rural' + '</div>';
+            '<div style="background-color:#FFFFFF">' + 'Rural' + '</div>';
         legend.appendChild(div);
     } else if (flag == 2) {
         const div = document.createElement("div");
