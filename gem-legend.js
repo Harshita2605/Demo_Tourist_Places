@@ -25,14 +25,27 @@ function makeLegend1(legendid, map, flag) {
             '<div style="color:#FFFFFF;background-color:#2D708E">' + 'Class Label 4' + '</div>' +
             '<div style="color:#FFFFFF;background-color:#238A8D">' + 'Class Label 5' + '</div>';
         legend.appendChild(div);
+    } else if (flag == 8) {
+        const div = document.createElement("div");
+        div.innerHTML =
+            '<div style="color:#FFFFFF;background-color:#444444">' + '0.0 - 0.3' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#481567">' + '0.3 - 0.6' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#453781">' + '0.6 - 0.9' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#39569C">' + '0.9 - 1.2' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#2D708E">' + '1.2 - 1.5' + '</div>' +
+            '<div style="color:#FFFFFF;background-color:#238A8D">' + '1.5 - 1.8' + '</div>' +
+            '<div style="background-color:#20A387">' + '1.8 - 2.1' + '</div>' +
+            '<div style="background-color:#3CBB75">' + '2.1 - 2.4' + '</div>' +
+            '<div style="background-color:#95D840">' + '2.4 - 2.7' + '</div>' +
+            '<div style="background-color:#FDE725">' + '2.7 - 3.0' + '</div>' +
+            '<div style="background-color:#FFFF99">' + '> 3.0' + '</div>';
+        legend.appendChild(div);
     } else {
         var fac;
         if (flag == 3)
             fac = 50;
         else if (flag == 4)
             fac = 10;
-        else if (flag == 8)
-            fac = 0.3;
         const div = document.createElement("div");
         div.innerHTML =
             '<div style="color:#FFFFFF;background-color:#444444">' + '0 - ' + fac + '</div>' +
