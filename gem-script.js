@@ -136,13 +136,13 @@ function initMap4(flag) {
     divid("legend6", "map27");
     divid("legend7", "map28");
 
-    makeLegend3("legend1", map22, flag);
-    makeLegend3("legend2", map23, flag);
-    makeLegend3("legend3", map24, flag);
-    makeLegend3("legend4", map25, flag);
-    makeLegend3("legend5", map26, flag);
-    makeLegend3("legend6", map27, flag);
-    makeLegend3("legend7", map28, flag);
+    makeLegend4("legend1", map22, flag);
+    makeLegend4("legend2", map23, flag);
+    makeLegend4("legend3", map24, flag);
+    makeLegend4("legend4", map25, flag);
+    makeLegend4("legend5", map26, flag);
+    makeLegend4("legend6", map27, flag);
+    makeLegend4("legend7", map28, flag);
 }
 
 function initMap5(flag) {
@@ -165,13 +165,13 @@ function initMap5(flag) {
     divid("legend6", "map34");
     divid("legend7", "map35");
 
-    makeLegend4("legend1", map29, flag);
-    makeLegend4("legend2", map30, flag);
-    makeLegend4("legend3", map31, flag);
-    makeLegend4("legend4", map32, flag);
-    makeLegend4("legend5", map33, flag);
-    makeLegend4("legend6", map34, flag);
-    makeLegend4("legend7", map35, flag);
+    makeLegend5("legend1", map29, flag);
+    makeLegend5("legend2", map30, flag);
+    makeLegend5("legend3", map31, flag);
+    makeLegend5("legend4", map32, flag);
+    makeLegend5("legend5", map33, flag);
+    makeLegend5("legend6", map34, flag);
+    makeLegend5("legend7", map35, flag);
 }
 
 function catmap(flag) {
