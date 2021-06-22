@@ -39,7 +39,6 @@ function initMap1(flag) {
     map6 = new google.maps.Map(document.getElementById("map6"), op);
     map7 = new google.maps.Map(document.getElementById("map7"), op);
 
-    console.log("hello1");
     catmap(flag);
 
     divid("legend1", "map1");
@@ -50,24 +49,6 @@ function initMap1(flag) {
     divid("legend6", "map6");
     divid("legend7", "map7");
 
-    /* const div = document.createElement("div");
-    div.setAttribute("class", "legend");
-    div.setAttribute("id", "legend1");
-    document.getElementById("map1").appendChild(div);
-
-    div.setAttribute("id", "legend2");
-    document.getElementById("map2").appendChild(div);
-
-    div.setAttribute("id", "legend3");
-    document.getElementById("map3").appendChild(div);
-
-    div.setAttribute("id", "legend4");
-    document.getElementById("map4").appendChild(div);
-
-    div.setAttribute("id", "legend5");
-    document.getElementById("map5").appendChild(div); */
-
-    console.log("hello2");
     makeLegend1("legend1", map1, flag);
     makeLegend1("legend2", map2, flag);
     makeLegend1("legend3", map3, flag);
@@ -88,6 +69,22 @@ function initMap2(flag) {
     map14 = new google.maps.Map(document.getElementById("map14"), op);
 
     popmap(flag);
+
+    divid("legend1", "map8");
+    divid("legend2", "map9");
+    divid("legend3", "map10");
+    divid("legend4", "map11");
+    divid("legend5", "map12");
+    divid("legend6", "map13");
+    divid("legend7", "map14");
+
+    makeLegend2("legend1", map8, 1);
+    makeLegend2("legend2", map9, 2);
+    makeLegend2("legend3", map10, 3);
+    makeLegend2("legend4", map11, 4);
+    makeLegend2("legend5", map12, 5);
+    makeLegend2("legend6", map13, 6);
+    makeLegend2("legend7", map14, 7);
 }
 
 function initMap3(flag) {
@@ -101,6 +98,22 @@ function initMap3(flag) {
     map21 = new google.maps.Map(document.getElementById("map21"), op);
 
     nmap(flag);
+
+    divid("legend1", "map15");
+    divid("legend2", "map16");
+    divid("legend3", "map17");
+    divid("legend4", "map18");
+    divid("legend5", "map19");
+    divid("legend6", "map20");
+    divid("legend7", "map21");
+
+    makeLegend3("legend1", map15, flag);
+    makeLegend3("legend2", map16, flag);
+    makeLegend3("legend3", map17, flag);
+    makeLegend3("legend4", map18, flag);
+    makeLegend3("legend5", map19, flag);
+    makeLegend3("legend6", map20, flag);
+    makeLegend3("legend7", map21, flag);
 }
 
 function initMap4(flag) {
@@ -114,6 +127,22 @@ function initMap4(flag) {
     map28 = new google.maps.Map(document.getElementById("map28"), op);
 
     nummap(flag);
+
+    divid("legend1", "map22");
+    divid("legend2", "map23");
+    divid("legend3", "map24");
+    divid("legend4", "map25");
+    divid("legend5", "map26");
+    divid("legend6", "map27");
+    divid("legend7", "map28");
+
+    makeLegend3("legend1", map22, flag);
+    makeLegend3("legend2", map23, flag);
+    makeLegend3("legend3", map24, flag);
+    makeLegend3("legend4", map25, flag);
+    makeLegend3("legend5", map26, flag);
+    makeLegend3("legend6", map27, flag);
+    makeLegend3("legend7", map28, flag);
 }
 
 function initMap5(flag) {
@@ -127,6 +156,22 @@ function initMap5(flag) {
     map35 = new google.maps.Map(document.getElementById("map35"), op);
 
     loadmap(flag);
+
+    divid("legend1", "map29");
+    divid("legend2", "map30");
+    divid("legend3", "map31");
+    divid("legend4", "map32");
+    divid("legend5", "map33");
+    divid("legend6", "map34");
+    divid("legend7", "map35");
+
+    makeLegend4("legend1", map29, flag);
+    makeLegend4("legend2", map30, flag);
+    makeLegend4("legend3", map31, flag);
+    makeLegend4("legend4", map32, flag);
+    makeLegend4("legend5", map33, flag);
+    makeLegend4("legend6", map34, flag);
+    makeLegend4("legend7", map35, flag);
 }
 
 function catmap(flag) {
@@ -177,93 +222,6 @@ function loadmap(flag) {
     hyd(4, flag, map33);
     kol(4, flag, map34);
     mum(4, flag, map35);
-}
-
-function makeLegend1(legendid, map, flag) {
-    console.log("hello2.5");
-    const legend = document.getElementById(legendid);
-
-    console.log(legend);
-    //1 GridType
-    //2 ClassLabel
-    //3 ThreeWays
-    //4 FourWays
-    //8 Walkability
-
-    if (flag == 1) {
-        const div = document.createElement("div");
-        div.innerHTML =
-            '<div style="background-color:#000000">' + 'Rejected' + '</div>' +
-            '<div style="background-color:#453781">' + 'Urban' + '</div>' +
-            '<div style="background-color:#3CBB75">' + 'PeriUrban' + '</div>' +
-            '<div style="background-color:#FFFFFF">' + 'Rural' + '</div>';
-        legend.appendChild(div);
-    } else if (flag == 2) {
-        const div = document.createElement("div");
-        div.innerHTML =
-            '<div style="background-color:#444444">' + 'Class Label 0' + '</div>' +
-            '<div style="background-color:#481567">' + 'Class Label 1' + '</div>' +
-            '<div style="background-color:#453781">' + 'Class Label 2' + '</div>' +
-            '<div style="background-color:#39569C">' + 'Class Label 3' + '</div>' +
-            '<div style="background-color:#2D708E">' + 'Class Label 4' + '</div>' +
-            '<div style="background-color:#238A8D">' + 'Class Label 5' + '</div>';
-        legend.appendChild(div);
-    } else if (flag == 3) {
-        const div = document.createElement("div");
-        div.innerHTML =
-            '<div style="background-color:#444444">' + '0 - 50' + '</div>' +
-            '<div style="background-color:#481567">' + '50 - 100' + '</div>' +
-            '<div style="background-color:#453781">' + '100 - 150' + '</div>' +
-            '<div style="background-color:#39569C">' + '150 - 200' + '</div>' +
-            '<div style="background-color:#2D708E">' + '200 - 250' + '</div>' +
-            '<div style="background-color:#238A8D">' + '250 - 300' + '</div>' +
-            '<div style="background-color:#20A387">' + '300 - 350' + '</div>' +
-            '<div style="background-color:#3CBB75">' + '350 - 400' + '</div>' +
-            '<div style="background-color:#95D840">' + '400 - 450' + '</div>' +
-            '<div style="background-color:#FDE725">' + '450 - 500' + '</div>' +
-            '<div style="background-color:#FFFF99">' + '> 500' + '</div>';
-
-        legend.appendChild(div);
-    } else if (flag == 4) {
-        const div = document.createElement("div");
-        div.innerHTML =
-            '<div style="background-color:#444444">' + '0 - 10' + '</div>' +
-            '<div style="background-color:#481567">' + '10 - 20' + '</div>' +
-            '<div style="background-color:#453781">' + '20 - 30' + '</div>' +
-            '<div style="background-color:#39569C">' + '30 - 40' + '</div>' +
-            '<div style="background-color:#2D708E">' + '40 - 50' + '</div>' +
-            '<div style="background-color:#238A8D">' + '50 - 60' + '</div>' +
-            '<div style="background-color:#20A387">' + '60 - 70' + '</div>' +
-            '<div style="background-color:#3CBB75">' + '70 - 80' + '</div>' +
-            '<div style="background-color:#95D840">' + '80 - 90' + '</div>' +
-            '<div style="background-color:#FDE725">' + '90 - 100' + '</div>' +
-            '<div style="background-color:#FFFF99">' + '> 100' + '</div>';
-
-        legend.appendChild(div);
-    } else if (flag == 8) {
-        const div = document.createElement("div");
-        div.innerHTML =
-            '<div style="background-color:#444444">' + '0.0 - 0.3' + '</div>' +
-            '<div style="background-color:#481567">' + '0.3 - 0.6' + '</div>' +
-            '<div style="background-color:#453781">' + '0.6 - 0.9' + '</div>' +
-            '<div style="background-color:#39569C">' + '0.9 - 1.2' + '</div>' +
-            '<div style="background-color:#2D708E">' + '1.2 - 1.5' + '</div>' +
-            '<div style="background-color:#238A8D">' + '1.5 - 1.8' + '</div>' +
-            '<div style="background-color:#20A387">' + '1.8 - 2.1' + '</div>' +
-            '<div style="background-color:#3CBB75">' + '2.1 - 2.4' + '</div>' +
-            '<div style="background-color:#95D840">' + '2.4 - 2.7' + '</div>' +
-            '<div style="background-color:#FDE725">' + '2.7 - 3.0' + '</div>' +
-            '<div style="background-color:#FFFF99">' + '> 3.0' + '</div>';
-
-        legend.appendChild(div);
-    } else {
-        const div = document.createElement("div");
-        div.innerHTML = '';
-        legend.appendChild(div);
-    }
-
-    console.log("hello3");
-    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
 }
 
 function divid(legend, map) {
